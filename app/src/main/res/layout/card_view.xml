@@ -28,7 +28,7 @@
                 android:layout_weight="8"
                 android:contentDescription="content_description_media"
                 android:scaleType="centerCrop"
-                app:srcCompat="@mipmap/food" />
+                app:srcCompat="@mipmap/ic_launcher" />
 
             <LinearLayout
                 android:layout_width="match_parent"
