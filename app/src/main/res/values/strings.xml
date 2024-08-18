@@ -12,4 +12,6 @@
     <string name="search">Search</string>
     <string name="home">Home</string>
     <string name="foodPlan">Food Plan</string>
+    <string name="addToplan">Add To Plan</string>
+    <string name="addtofav">Favorite</string>
 </resources>
