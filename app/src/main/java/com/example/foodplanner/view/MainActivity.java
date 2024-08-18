@@ -25,23 +25,18 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        getSupportActionBar().hide();
         AppDataBase dataBase = AppDataBase.getInstance(this);
-        FoodPlannerDao dao = dataBase.getFoodPlannerDao();
         new Thread(){
             @Override
             public void run() {
-                User user = new User("ahmed@k.com","11");
+                User user = new User("m@k.com","mohamed","11");
                 user.setId(2L);
-                user.setEmail("m@k.com");
-                dao.updateUser();
-                user.setId(3L);
                 user.setEmail("a@k.com");
-                dao.updateUser();
-                user.setId(4L);
+                dataBase.getFoodPlannerDao().updateUser(user);
+                user.setId(3L);
                 user.setEmail("b@k.com");
-                dao.updateUser();
-
-
+                dataBase.getFoodPlannerDao().updateUser(user);
 
             }
         }.start();

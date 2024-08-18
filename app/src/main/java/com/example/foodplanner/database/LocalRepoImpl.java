@@ -12,7 +12,7 @@ public class LocalRepoImpl implements LocalRepo{
 
     private LocalRepoImpl(Context context) {
         AppDataBase dataBase = AppDataBase.getInstance(context);
-        FoodPlannerDao dao = dataBase.getFoodPlannerDao();
+        dao = dataBase.getFoodPlannerDao();
     }
     public static LocalRepoImpl getInstance(Context context){
         if(localSource==null){
@@ -22,7 +22,13 @@ public class LocalRepoImpl implements LocalRepo{
     }
     @Override
     public void insertUser(User... user) {
-        dao.insertUser(user);
+        new Thread(){
+            @Override
+            public void run() {
+                dao.insertUser(user);
+            }
+        }.start();
+
     }
 
     @Override

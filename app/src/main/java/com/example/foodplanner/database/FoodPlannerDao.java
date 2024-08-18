@@ -17,8 +17,8 @@ public interface FoodPlannerDao {
     public void updateUser(User... user);
     @Delete(entity = User.class)
     public void deleteUser(User... user);
-    @Query("SELECT * FROM user WHERE email=:email")
+    @Query("SELECT * FROM User WHERE email=:email")
     public LiveData<User> getUser(String email);
-    @Query("SELECT * FROM user WHERE email=:email AND password = :password")
+    @Query("SELECT * FROM User WHERE email=:email AND password = :password")
     LiveData<User> userAuth(String email, String password);
 }

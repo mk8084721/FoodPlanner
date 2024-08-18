@@ -1,25 +1,46 @@
 package com.example.foodplanner.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.database.LocalRepoImpl;
+import com.example.foodplanner.model.User;
+import com.example.foodplanner.presenter.LoginPresenter;
 
 
 public class LoginFragment extends Fragment implements ILogin {
-
+    LoginPresenter presenter;
+    View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new LoginPresenter(LocalRepoImpl.getInstance(getContext()),this);
+        presenter.insertUser();
+        Long id = presenter.readSharedPreferance(getActivity());
+        if(id!=0){
+            Intent intent = new Intent(this.getContext(), HomeActivity.class);
+            intent.putExtra("userId",id);
+            startActivity(intent);
+        }
 
     }
 
@@ -33,18 +54,30 @@ public class LoginFragment extends Fragment implements ILogin {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.view=view;
         Button loginBtn = view.findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText emailTxt = view.findViewById(R.id.emailTxt);
+                EditText passwordTxt = view.findViewById(R.id.passwordTxt);
+                String email = emailTxt.getText().toString();
+                String password = passwordTxt.getText().toString();
 
+                presenter.checkAuth(new User(email,password));
             }
         });
     }
 
     @Override
-    public void loginStatus(boolean isLogedin) {
-        Intent intent= new Intent(this.getActivity().getBaseContext(), HomeActivity.class);
-        startActivity(intent);
+    public void loginStatus(boolean isLogedin , Long id) {
+        if(isLogedin){
+            presenter.writeInSharedPreferance(getActivity(),1,id);
+            Intent intent = new Intent(this.getContext(), HomeActivity.class);
+            intent.putExtra("userId",id);
+            startActivity(intent);
+        }else{
+            Toast.makeText(view.getContext(), "wrong Email / password", Toast.LENGTH_SHORT).show();
+        }
     }
 }
