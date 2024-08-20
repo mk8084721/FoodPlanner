@@ -7,8 +7,8 @@ import com.example.foodplanner.network.model.Meal;
 import com.example.foodplanner.Home.view.IHome;
 
 public class HomePresenter implements HomeNetworkCallback {
-    HomeRepo remoteRebo;
-    IHome view;
+    private HomeRepo remoteRebo;
+    private IHome view;
     public HomePresenter(IHome view , HomeRepo remoteDataSource) {
         this.remoteRebo = remoteDataSource;
         this.view = view;

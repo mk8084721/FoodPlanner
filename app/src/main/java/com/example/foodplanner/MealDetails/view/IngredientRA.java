@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.Home.view.HomeFragmentDirections;
 import com.example.foodplanner.Home.view.RecyclerAdapter;
+import com.example.foodplanner.MealDetails.model.Ingredient;
 import com.example.foodplanner.R;
 import com.example.foodplanner.network.model.Meal;
 
@@ -26,11 +27,13 @@ import java.util.List;
 
 
 public class IngredientRA extends RecyclerView.Adapter<IngredientRA.ViewHolder> {
-        List<Meal> meals;
+        List<String> ingredients;
+        List<String> measures;
         Context context;
 
-        public IngredientRA(List<Meal> meals , Context context ) {
-            this.meals = meals;
+        public IngredientRA(List<String> ingredients ,List<String> measures, Context context ) {
+            this.ingredients = ingredients;
+            this.measures = measures;
             this.context = context;
 
         }
@@ -39,14 +42,15 @@ public class IngredientRA extends RecyclerView.Adapter<IngredientRA.ViewHolder> 
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup recycler, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(recycler.getContext());
             ViewHolder viewHolder;
-            viewHolder = new ViewHolder(inflater.inflate(R.layout.card_view,recycler,false));
+            viewHolder = new ViewHolder(inflater.inflate(R.layout.ingredient_layout,recycler,false));
             return viewHolder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.mealName.setText(meals.get(position).getStrMeal());
-            String imgURl= meals.get(position).getStrMealThumb();
+            holder.ingredientName.setText(ingredients.get(position));
+            holder.measure.setText(measures.get(position));
+            String imgURl= ""+ingredients.get(position)+"-Small.png";
             try {
                 Glide.with(context).load(new URL(imgURl))
                         .apply(new RequestOptions().override(200,200)
@@ -61,22 +65,18 @@ public class IngredientRA extends RecyclerView.Adapter<IngredientRA.ViewHolder> 
 
         @Override
         public int getItemCount() {
-            return meals.size();
+            return ingredients.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
-            TextView mealName;
+            TextView ingredientName;
+            TextView measure;
             ImageView img;
-            Button favButton;
-            Button planBtn;
-            CardView card;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-                mealName= itemView.findViewById(R.id.mealName);
-                img= itemView.findViewById(R.id.mealImage);
-                favButton = itemView.findViewById(R.id.addToFav);
-                planBtn = itemView.findViewById(R.id.addToPlan);
-                card = itemView.findViewById(R.id.card);
+                ingredientName= itemView.findViewById(R.id.ingredientName);
+                measure= itemView.findViewById(R.id.howMuch);
+                img= itemView.findViewById(R.id.ingredientImageView);
 
             }
         }

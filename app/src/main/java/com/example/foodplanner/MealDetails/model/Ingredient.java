@@ -9,6 +9,10 @@ public class Ingredient {
     private List<String> ingeredients;
     private List<String> measures;
 
+    public Ingredient(Meal meal) {
+        getIngredientsFromMeal(meal);
+    }
+
 
     public Ingredient getIngredientsFromMeal(Meal meal){
         ingeredients.add(meal.getStrIngredient1());
