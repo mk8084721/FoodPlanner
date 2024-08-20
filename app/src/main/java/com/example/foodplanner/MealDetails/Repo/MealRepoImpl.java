@@ -34,13 +34,13 @@ public class MealRepoImpl implements MealRepo{
     }
 
     @Override
-    public void getMealById(MealNetworkCallback mealNetworkCallback, int id) {
+    public void getMealById(MealNetworkCallback mealNetworkCallback, String id) {
         Call<Meals> call = mealService.getMealById(id);
         call.enqueue(new Callback<Meals>() {
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
                 if(response.isSuccessful()){
-                    //Log.i("TAG", "onResponse: "+response.body().toString());
+                    Log.i("TAG", "onResponse: "+response.body().toString());
                     mealNetworkCallback.onMealResponse(response.body().getMeals()[0]);
                 }
             }

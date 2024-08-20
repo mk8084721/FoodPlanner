@@ -50,7 +50,7 @@ public class IngredientRA extends RecyclerView.Adapter<IngredientRA.ViewHolder> 
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             holder.ingredientName.setText(ingredients.get(position));
             holder.measure.setText(measures.get(position));
-            String imgURl= ""+ingredients.get(position)+"-Small.png";
+            String imgURl= "https://www.themealdb.com/images/ingredients/"+ingredients.get(position)+"-Small.png";
             try {
                 Glide.with(context).load(new URL(imgURl))
                         .apply(new RequestOptions().override(200,200)

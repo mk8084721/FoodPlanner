@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MealDetails.view.MealDetailsFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -32,17 +32,18 @@
                 android:id="@+id/ingredientRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/mealDetails" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/mealDetailsImage"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/place_holder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,26 +52,29 @@
                 android:layout_width="300dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="350dp"
+                app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/MealName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/alexandria_extrabold"
                     android:gravity="center"
-                    android:text="hi its me"
+                    android:text=""
                     android:textSize="16sp" />
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/mealDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:text="TextView"
+                android:fontFamily="@font/aoboshi_one"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addMealToFav" />
 
@@ -87,7 +91,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 

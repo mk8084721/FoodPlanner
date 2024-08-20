@@ -12,8 +12,8 @@ public interface MealService {
     Call<Meals> getAllMeals();
     @GET("search.php")
     Call<Meals>getMealByName(@Query("s") String name);
-    @GET("search.php")
-    Call<Meals>getMealById(@Query("i") int id);
+    @GET("lookup.php")
+    Call<Meals>getMealById(@Query("i") String id);
     @GET("random.php")
     Call<Meals>getRandomMeal();
     @GET("randomselection.php")

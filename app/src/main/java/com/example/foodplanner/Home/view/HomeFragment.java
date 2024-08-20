@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment implements IHome {
         super.onViewCreated(view, savedInstanceState);
         presenter.getAllCategories();
         homeView=view;
+        Log.i("TAG", "filterByCategory: counter  "+counter);
         idsTxtView = new int[]{
                 R.id.title1,
                 R.id.title2,
@@ -84,6 +86,12 @@ public class HomeFragment extends Fragment implements IHome {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        counter=0;
+    }
+
+    @Override
     public void setAllCategories(Category[] categories) {
         for (int i= 0; i< categories.length;i++){
             TextView textView = homeView.findViewById(idsTxtView[i]);
@@ -95,6 +103,7 @@ public class HomeFragment extends Fragment implements IHome {
 
     @Override
     public void filterByCategory(Meal[] meals) {
+        Log.i("TAG", "filterByCategory: counter  "+counter);
         RecyclerView recyclerView = homeView.findViewById(idsRView[counter]);
         LinearLayoutManager manager = new LinearLayoutManager(homeView.getContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
@@ -102,4 +111,5 @@ public class HomeFragment extends Fragment implements IHome {
         recyclerView.setAdapter(adapter);
         counter++;
     }
+
 }

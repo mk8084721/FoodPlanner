@@ -10,6 +10,9 @@ public class Ingredient {
     private List<String> measures;
 
     public Ingredient(Meal meal) {
+        ingeredients=new ArrayList<>();
+        measures =new ArrayList<>();
+
         getIngredientsFromMeal(meal);
     }
 

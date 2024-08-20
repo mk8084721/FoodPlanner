@@ -15,7 +15,7 @@ public class MealPresenter implements MealNetworkCallback {
         this.remoteRebo = remoteDataSource;
         this.view = view;
     }
-    public void getMealWithId(int id){
+    public void getMealWithId(String id){
         remoteRebo.getMealById(this,id);
     }
 
