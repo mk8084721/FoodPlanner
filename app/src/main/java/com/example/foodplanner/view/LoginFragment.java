@@ -35,8 +35,8 @@ public class LoginFragment extends Fragment implements ILogin {
 
         presenter = new LoginPresenter(LocalRepoImpl.getInstance(getContext()),this);
         presenter.insertUser();
-        Long id = presenter.readSharedPreferance(getActivity());
-        if(id!=0){
+        String id = presenter.readSharedPreferance(getActivity());
+        if(id!=null){
             Intent intent = new Intent(this.getContext(), HomeActivity.class);
             intent.putExtra("userId",id);
             startActivity(intent);
@@ -64,12 +64,12 @@ public class LoginFragment extends Fragment implements ILogin {
                 String email = emailTxt.getText().toString();
                 String password = passwordTxt.getText().toString();
 
-                presenter.checkAuth(new User(email,password));
+//                presenter.checkAuth(new User(email,password));
             }
         });
     }
 
-    @Override
+    /*@Override
     public void loginStatus(boolean isLogedin , Long id) {
         if(isLogedin){
             presenter.writeInSharedPreferance(getActivity(),1,id);
@@ -79,5 +79,5 @@ public class LoginFragment extends Fragment implements ILogin {
         }else{
             Toast.makeText(view.getContext(), "wrong Email / password", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package com.example.foodplanner.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -8,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.foodplanner.LoginActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.AppDataBase;
 import com.example.foodplanner.database.FoodPlannerDao;
@@ -26,20 +28,22 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         getSupportActionBar().hide();
-        AppDataBase dataBase = AppDataBase.getInstance(this);
-        new Thread(){
-            @Override
-            public void run() {
-                User user = new User("m@k.com","mohamed","11");
-                user.setId(2L);
-                user.setEmail("a@k.com");
-                dataBase.getFoodPlannerDao().updateUser(user);
-                user.setId(3L);
-                user.setEmail("b@k.com");
-                dataBase.getFoodPlannerDao().updateUser(user);
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
-            }
-        }.start();
+//        AppDataBase dataBase = AppDataBase.getInstance(this);
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                User user = new User("m@k.com","mohamed","11");
+//                user.setId(2L);
+//                user.setEmail("a@k.com");
+//                dataBase.getFoodPlannerDao().updateUser(user);
+//                user.setId(3L);
+//                user.setEmail("b@k.com");
+//                dataBase.getFoodPlannerDao().updateUser(user);
+//
+//            }
+//        }.start();
 
     }
 }

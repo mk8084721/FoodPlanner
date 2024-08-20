@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -36,6 +38,7 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
+    implementation libs.firebase.auth
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
@@ -48,4 +51,9 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.7.0"
+    //google Auth
+    implementation "com.google.firebase:firebase-auth:22.1.1"
+    implementation "com.google.android.gms:play-services-auth:20.7.0"
+    //circular image
+    implementation "de.hdodenhof:circleimageview:3.1.0"
 }

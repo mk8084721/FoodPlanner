@@ -24,7 +24,7 @@ public class LoginPresenter {
         this.localRepo = localRepo;
         this.view = view;
     }
-    public void checkAuth(User user){
+    /*public void checkAuth(User user){
         LiveData<User> userLiveData = localRepo.userAuth(user.getEmail(), user.getPassword());
         userLiveData.observe((LifecycleOwner) view, new Observer<User>() {
             @Override
@@ -35,22 +35,22 @@ public class LoginPresenter {
                 view.loginStatus(islogedin, user.getId());
             }
         });
-    }
-    public Long readSharedPreferance(Activity activity){
+    }*/
+    public String readSharedPreferance(Activity activity){
         SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         int loginInt = storage.getInt("isLogedin",0);
         if(loginInt==0){
-            return 0L;
+            return null;
         }else{
-            Long id = storage.getLong("userId", 1L);
-            return id;
+            String email = storage.getString("userEmail", null);
+            return email;
         }
     }
-    public void writeInSharedPreferance(Activity activity ,int isLogedin , Long id){
+    public void writeInSharedPreferance(Activity activity ,int isLogedin , String email){
         SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = storage.edit();
         editor.putInt("isLogedin",isLogedin);
-        editor.putLong("userId",id);
+        editor.putString("userEmail",email);
         editor.commit();
     }
 

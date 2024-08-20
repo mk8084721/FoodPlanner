@@ -14,4 +14,9 @@
     <string name="foodPlan">Food Plan</string>
     <string name="addToplan">Add To Plan</string>
     <string name="addtofav">Favorite</string>
+    <string name="register">Register</string>
+    <string name="google">Google</string>
+    <string name="google_id_from">1026804517930-hrrjr2rkloc5ata9lpvqgf80ug8nnb0n</string>
+    <string name="meal">Meal</string>
+
 </resources>

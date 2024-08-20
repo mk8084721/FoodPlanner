@@ -1,6 +1,8 @@
 package com.example.foodplanner.network.model;
 
-public class Meal {
+import java.io.Serializable;
+
+public class Meal implements Serializable {
     private String idMeal;
     private String strMeal;
     private String strDrinkAlternate;

@@ -1,7 +1,9 @@
-package com.example.foodplanner.Home.Repo;
+package com.example.foodplanner.MealDetails.Repo;
 
 import android.util.Log;
 
+import com.example.foodplanner.Home.Repo.HomeNetworkCallback;
+import com.example.foodplanner.Home.Repo.HomeRepoImpl;
 import com.example.foodplanner.network.MealService;
 import com.example.foodplanner.network.model.Categories;
 import com.example.foodplanner.network.model.Meals;
@@ -12,34 +14,34 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeRepoImpl implements HomeRepo {
+public class MealRepoImpl implements MealRepo{
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     private MealService mealService;
-    private static HomeRepoImpl RemoteDataSource = null;
+    private static MealRepoImpl RemoteDataSource = null;
 
-    private HomeRepoImpl() {
+    private MealRepoImpl() {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL).build();
         mealService = retrofit.create(MealService.class);
     }
 
-    public static HomeRepoImpl getInstance() {
+    public static MealRepoImpl getInstance() {
         if(RemoteDataSource==null){
-            RemoteDataSource = new HomeRepoImpl();
+            RemoteDataSource = new MealRepoImpl();
         }
         return RemoteDataSource;
     }
 
     @Override
-    public void getAllCategories(HomeNetworkCallback homeNetworkCallback) {
-        Call<Categories> call = mealService.getAllCategories();
-        call.enqueue(new Callback<Categories>() {
+    public void getMealById(MealNetworkCallback mealNetworkCallback, int id) {
+        Call<Meals> call = mealService.getMealById(id);
+        call.enqueue(new Callback<Meals>() {
             @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
+            public void onResponse(Call<Meals> call, Response<Meals> response) {
                 if(response.isSuccessful()){
                     //Log.i("TAG", "onResponse: "+response.body().toString());
-                    homeNetworkCallback.onCategoryResponse(response.body().getCategories());
+                    mealNetworkCallback.onMealResponse(response.body().getCategories());
                 }
             }
 

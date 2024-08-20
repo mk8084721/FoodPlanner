@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -53,6 +55,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
+                        .actionHomeFragmentToMealDetailsFragment(
+                        meals
+                                .get(holder.getAdapterPosition())
+                                .getIdMeal()
+                        );
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
 //        if(isFavoritePage){
 //            holder.favButton.setEnabled(true);
 //
@@ -104,12 +118,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         ImageView img;
         Button favButton;
         Button planBtn;
+        CardView card;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mealName= itemView.findViewById(R.id.mealName);
             img= itemView.findViewById(R.id.mealImage);
             favButton = itemView.findViewById(R.id.addToFav);
             planBtn = itemView.findViewById(R.id.addToPlan);
+            card = itemView.findViewById(R.id.card);
 
         }
     }
