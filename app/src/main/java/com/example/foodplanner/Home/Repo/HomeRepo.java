@@ -1,7 +1,12 @@
 package com.example.foodplanner.Home.Repo;
 
-public interface HomeRepo {
-    void getAllCategories(HomeNetworkCallback homeNetworkCallback);
+import com.example.foodplanner.network.model.Category;
+import com.example.foodplanner.network.model.Meal;
 
-    void filterByCategoryCall(HomeNetworkCallback homeNetworkCallback, String category);
+import io.reactivex.rxjava3.core.Observable;
+
+public interface HomeRepo {
+    Observable<Category[]> getAllCategories();
+
+    Observable<Meal[]> filterByCategoryCall(String category);
 }

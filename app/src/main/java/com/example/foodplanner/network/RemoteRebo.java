@@ -1,19 +1,24 @@
 package com.example.foodplanner.network;
 
-import com.example.foodplanner.Home.Repo.HomeNetworkCallback;
+import com.example.foodplanner.network.model.Categories;
+import com.example.foodplanner.network.model.Category;
+import com.example.foodplanner.network.model.Meal;
+
+import io.reactivex.rxjava3.core.Observable;
+import retrofit2.Call;
 
 public interface RemoteRebo {
-    void getAllProductsCall(HomeNetworkCallback homeNetworkCallback);
-    void getMealByNameCall(HomeNetworkCallback homeNetworkCallback);
-    void getMealByIdCall(HomeNetworkCallback homeNetworkCallback);
-    void getRandomMealCall(HomeNetworkCallback homeNetworkCallback);
-    void getTenRandomMealsCall(HomeNetworkCallback homeNetworkCallback);
-    void listAllCategoriesCall(HomeNetworkCallback homeNetworkCallback);
-    void listAllAreasCall(HomeNetworkCallback homeNetworkCallback);
-    void listAllIngredientsCall(HomeNetworkCallback homeNetworkCallback);
-    void filterByIngredientCall(HomeNetworkCallback homeNetworkCallback);
-    void filterByAreaCall(HomeNetworkCallback homeNetworkCallback);
-    void filterByCategoryCall(HomeNetworkCallback homeNetworkCallback);
+    Observable<Meal[]> getAllMealsCall();
+    void getMealByNameCall();
+    Observable<Meal> getMealByIdCall(String id);
+    void getRandomMealCall();
+    void getTenRandomMealsCall();
+    void listAllCategoriesCall();
+    void listAllAreasCall();
+    void listAllIngredientsCall();
+    void filterByIngredientCall();
+    void filterByAreaCall();
+    Observable<Meal[]> filterByCategoryCall(String category);
 
-    void getAllCategories(HomeNetworkCallback homeNetworkCallback);
+    Observable<Category[]> getAllCategories();
 }

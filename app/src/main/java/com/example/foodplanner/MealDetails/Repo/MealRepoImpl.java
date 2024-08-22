@@ -1,29 +1,17 @@
 package com.example.foodplanner.MealDetails.Repo;
 
-import android.util.Log;
+import com.example.foodplanner.network.RemoteRebo;
+import com.example.foodplanner.network.RemoteRepoImpl;
+import com.example.foodplanner.network.model.Meal;
 
-import com.example.foodplanner.Home.Repo.HomeNetworkCallback;
-import com.example.foodplanner.Home.Repo.HomeRepoImpl;
-import com.example.foodplanner.network.MealService;
-import com.example.foodplanner.network.model.Categories;
-import com.example.foodplanner.network.model.Meals;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.reactivex.rxjava3.core.Observable;
 
 public class MealRepoImpl implements MealRepo{
-    private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-    private MealService mealService;
+    private RemoteRebo remoteRebo;
     private static MealRepoImpl RemoteDataSource = null;
 
     private MealRepoImpl() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL).build();
-        mealService = retrofit.create(MealService.class);
+       remoteRebo = RemoteRepoImpl.getInstance();
     }
 
     public static MealRepoImpl getInstance() {
@@ -34,26 +22,28 @@ public class MealRepoImpl implements MealRepo{
     }
 
     @Override
-    public void getMealById(MealNetworkCallback mealNetworkCallback, String id) {
-        Call<Meals> call = mealService.getMealById(id);
-        call.enqueue(new Callback<Meals>() {
-            @Override
-            public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if(response.isSuccessful()){
-                    Log.i("TAG", "onResponse: "+response.body().toString());
-                    mealNetworkCallback.onMealResponse(response.body().getMeals()[0]);
-                }
-            }
+    public Observable<Meal> getMealById(String id) {
+        return remoteRebo.getMealByIdCall(id);
 
-            @Override
-            public void onFailure(Call<Meals> call, Throwable throwable) {
-                Log.i("TAG", "onFailure : Callback");
-                mealNetworkCallback.onFailure(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-
-
-        });
+//        Call<Meals> call = mealService.getMealById(id);
+//        call.enqueue(new Callback<Meals>() {
+//            @Override
+//            public void onResponse(Call<Meals> call, Response<Meals> response) {
+//                if(response.isSuccessful()){
+//                    Log.i("TAG", "onResponse: "+response.body().toString());
+//                    mealNetworkCallback.onMealResponse(response.body().getMeals()[0]);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Meals> call, Throwable throwable) {
+//                Log.i("TAG", "onFailure : Callback");
+//                mealNetworkCallback.onFailure(throwable.getMessage());
+//                throwable.printStackTrace();
+//            }
+//
+//
+//        });
     }
 
 //    @Override

@@ -6,7 +6,11 @@ import com.example.foodplanner.network.model.Category;
 import com.example.foodplanner.network.model.Meal;
 import com.example.foodplanner.Home.view.IHome;
 
-public class HomePresenter implements HomeNetworkCallback {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class HomePresenter {
     private HomeRepo remoteRebo;
     private IHome view;
     public HomePresenter(IHome view , HomeRepo remoteDataSource) {
@@ -14,25 +18,24 @@ public class HomePresenter implements HomeNetworkCallback {
         this.view = view;
     }
     public void getAllCategories(){
-        remoteRebo.getAllCategories(this);
+        Observable<Category[]> observable = remoteRebo.getAllCategories();
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        categories -> {
+                            view.setAllCategories(categories);
+                        }
+                );
     }
     public void filterByCategory(String category){
-        remoteRebo.filterByCategoryCall(this , category);
+        Observable<Meal[]> observable = remoteRebo.filterByCategoryCall(category);
+                observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                meals -> {
+                                    view.filterByCategory(meals);
+                                }
+                        );
     }
 
-
-    @Override
-    public void onResponse(Meal[] meals) {
-        view.filterByCategory(meals);
-    }
-
-    @Override
-    public void onCategoryResponse(Category[] categories) {
-        view.setAllCategories(categories);
-    }
-
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 }

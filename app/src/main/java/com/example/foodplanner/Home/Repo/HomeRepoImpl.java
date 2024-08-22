@@ -1,27 +1,18 @@
 package com.example.foodplanner.Home.Repo;
 
-import android.util.Log;
+import com.example.foodplanner.network.RemoteRebo;
+import com.example.foodplanner.network.RemoteRepoImpl;
+import com.example.foodplanner.network.model.Category;
+import com.example.foodplanner.network.model.Meal;
 
-import com.example.foodplanner.network.MealService;
-import com.example.foodplanner.network.model.Categories;
-import com.example.foodplanner.network.model.Meals;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.reactivex.rxjava3.core.Observable;
 
 public class HomeRepoImpl implements HomeRepo {
-    private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-    private MealService mealService;
+    private RemoteRebo remoteRebo;
     private static HomeRepoImpl RemoteDataSource = null;
 
     private HomeRepoImpl() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL).build();
-        mealService = retrofit.create(MealService.class);
+        remoteRebo = RemoteRepoImpl.getInstance();
     }
 
     public static HomeRepoImpl getInstance() {
@@ -32,9 +23,10 @@ public class HomeRepoImpl implements HomeRepo {
     }
 
     @Override
-    public void getAllCategories(HomeNetworkCallback homeNetworkCallback) {
-        Call<Categories> call = mealService.getAllCategories();
-        call.enqueue(new Callback<Categories>() {
+    public Observable<Category[]> getAllCategories() {
+        Observable<Category[]> call = remoteRebo.getAllCategories();
+        return call;
+        /*call.enqueue(new Callback<Categories>() {
             @Override
             public void onResponse(Call<Categories> call, Response<Categories> response) {
                 if(response.isSuccessful()){
@@ -49,13 +41,14 @@ public class HomeRepoImpl implements HomeRepo {
                 homeNetworkCallback.onFailure(throwable.getMessage());
                 throwable.printStackTrace();
             }
-        });
+        });*/
     }
 
     @Override
-    public void filterByCategoryCall(HomeNetworkCallback homeNetworkCallback, String category) {
-        Call<Meals> call = mealService.filterByCategory(category);
-        call.enqueue(new Callback<Meals>() {
+    public Observable<Meal[]> filterByCategoryCall( String category) {
+        Observable<Meal[]> call = remoteRebo.filterByCategoryCall(category);
+        return call;
+        /*call.enqueue(new Callback<Meals>() {
             @Override
             public void onResponse(Call<Meals> call, Response<Meals> response) {
                 if(response.isSuccessful()){
@@ -70,6 +63,6 @@ public class HomeRepoImpl implements HomeRepo {
                 homeNetworkCallback.onFailure(throwable.getMessage());
                 throwable.printStackTrace();
             }
-        });
+        });*/
     }
 }

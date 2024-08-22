@@ -1,14 +1,14 @@
 package com.example.foodplanner.MealDetails.presenter;
 
-import com.example.foodplanner.Home.Repo.HomeNetworkCallback;
-import com.example.foodplanner.Home.Repo.HomeRepo;
-import com.example.foodplanner.Home.view.IHome;
-import com.example.foodplanner.MealDetails.Repo.MealNetworkCallback;
 import com.example.foodplanner.MealDetails.Repo.MealRepo;
 import com.example.foodplanner.MealDetails.view.IMealDetails;
 import com.example.foodplanner.network.model.Meal;
 
-public class MealPresenter implements MealNetworkCallback {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class MealPresenter {
     MealRepo remoteRebo;
     IMealDetails view;
     public MealPresenter(IMealDetails view , MealRepo remoteDataSource) {
@@ -16,16 +16,10 @@ public class MealPresenter implements MealNetworkCallback {
         this.view = view;
     }
     public void getMealWithId(String id){
-        remoteRebo.getMealById(this,id);
+        Observable<Meal> observable = remoteRebo.getMealById(id);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(meal -> view.setMealById(meal));
     }
 
-    @Override
-    public void onMealResponse(Meal meal) {
-        view.setMealById(meal);
-    }
-
-    @Override
-    public void onFailure(String errorMsg) {
-
-    }
 }
