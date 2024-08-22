@@ -25,8 +25,8 @@ public class LoginFragment extends Fragment implements ILogin {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new LoginPresenter(LocalRepoImpl.getInstance(getContext()),this);
-        presenter.insertUser();
+        //presenter = new LoginPresenter(LocalRepoImpl.getInstance(getContext()),this);
+        //presenter.insertUser();
         String id = presenter.readSharedPreferance(getActivity());
         if(id!=null){
             Intent intent = new Intent(this.getContext(), HomeActivity.class);

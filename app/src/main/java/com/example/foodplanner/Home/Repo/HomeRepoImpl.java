@@ -26,43 +26,11 @@ public class HomeRepoImpl implements HomeRepo {
     public Observable<Category[]> getAllCategories() {
         Observable<Category[]> call = remoteRebo.getAllCategories();
         return call;
-        /*call.enqueue(new Callback<Categories>() {
-            @Override
-            public void onResponse(Call<Categories> call, Response<Categories> response) {
-                if(response.isSuccessful()){
-                    //Log.i("TAG", "onResponse: "+response.body().toString());
-                    homeNetworkCallback.onCategoryResponse(response.body().getCategories());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Categories> call, Throwable throwable) {
-                Log.i("TAG", "onFailure : Callback");
-                homeNetworkCallback.onFailure(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });*/
     }
 
     @Override
     public Observable<Meal[]> filterByCategoryCall( String category) {
         Observable<Meal[]> call = remoteRebo.filterByCategoryCall(category);
         return call;
-        /*call.enqueue(new Callback<Meals>() {
-            @Override
-            public void onResponse(Call<Meals> call, Response<Meals> response) {
-                if(response.isSuccessful()){
-                    //Log.i("TAG", "onResponse: "+response.body().toString());
-                    homeNetworkCallback.onResponse(response.body().getMeals());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Meals> call, Throwable throwable) {
-                //Log.i("TAG", "onFailure : Callback");
-                homeNetworkCallback.onFailure(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });*/
     }
 }

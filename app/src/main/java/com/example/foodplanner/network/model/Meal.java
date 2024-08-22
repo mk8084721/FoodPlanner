@@ -61,6 +61,9 @@ public class Meal implements Serializable {
     private String strIngredient;
     private String strDescription;
     private String strType;
+    ///////////////////////
+    private boolean isFavorite;
+
 
     @Override
     public String toString() {
@@ -123,6 +126,14 @@ public class Meal implements Serializable {
                 ", strDescription='" + strDescription + '\'' +"\n"+
                 ", strType='" + strType + '\'' +"\n"+
                 '}';
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public String getIdIngredient() {

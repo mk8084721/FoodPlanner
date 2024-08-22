@@ -4,7 +4,12 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.foodplanner.Favorite.model.FavoriteMeal;
 import com.example.foodplanner.model.User;
+
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
 
 public class LocalRepoImpl implements LocalRepo{
     private FoodPlannerDao dao;
@@ -20,8 +25,8 @@ public class LocalRepoImpl implements LocalRepo{
         }
         return localSource;
     }
-    @Override
-    public void insertUser(User... user) {
+
+/*    public void insertUser(User... user) {
         new Thread(){
             @Override
             public void run() {
@@ -31,23 +36,55 @@ public class LocalRepoImpl implements LocalRepo{
 
     }
 
-    @Override
+
     public void updateUser(User... user) {
         dao.updateUser(user);
     }
 
-    @Override
+
     public void deleteUser(User... user) {
         dao.deleteUser(user);
     }
 
-    @Override
+
     public LiveData<User> getUser(String email) {
         return dao.getUser(email);
     }
 
-    @Override
+
     public LiveData<User> userAuth(String email, String password) {
         return dao.userAuth(email, password);
+    }*/
+
+    @Override
+    public void insertFavoriteMeal(FavoriteMeal... favoriteMeal) {
+        new Thread(){
+            @Override
+            public void run() {
+                dao.insertFavoriteMeal(favoriteMeal);
+            }
+        }.start();
+
+    }
+
+    @Override
+    public void updateFavoriteMeal(FavoriteMeal... favoriteMeal) {
+        dao.updateFavoriteMeal(favoriteMeal);
+    }
+
+    @Override
+    public void deleteFavoriteMeal(FavoriteMeal... favoriteMeal) {
+        new Thread(){
+            @Override
+            public void run() {
+                dao.deleteFavoriteMeal(favoriteMeal);
+            }
+        }.start();
+
+    }
+
+    @Override
+    public Flowable<List<FavoriteMeal>> getFavoriteMeals() {
+        return dao.getFavoriteMeals();
     }
 }

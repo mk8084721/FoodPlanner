@@ -25,11 +25,12 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     List<Meal> meals;
     Context context;
+    HomeOnClickListener listener;
 
-    public RecyclerAdapter(List<Meal> meals , Context context ) {
+    public RecyclerAdapter(List<Meal> meals ,HomeOnClickListener listener, Context context ) {
         this.meals = meals;
         this.context = context;
-
+        this.listener = listener;
     }
     @NonNull
     @Override
@@ -65,6 +66,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 Navigation.findNavController(view).navigate(action);
             }
         });
+        holder.favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Meal meal = meals.get(holder.getAdapterPosition());
+                meal.setFavorite(!meal.isFavorite());
+                listener.favoriteBtnClicked(meal);
+            }
+        });
+
 //        if(isFavoritePage){
 //            holder.favButton.setEnabled(true);
 //

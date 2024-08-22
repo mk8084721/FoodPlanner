@@ -9,14 +9,12 @@ import com.example.foodplanner.model.User;
 import com.example.foodplanner.view.ILogin;
 
 public class LoginPresenter {
-    LocalRepo localRepo;
     ILogin view;
 
-    public LoginPresenter(LocalRepo localRepo, ILogin view) {
-        this.localRepo = localRepo;
+    public LoginPresenter( ILogin view) {
         this.view = view;
     }
-    /*public void checkAuth(User user){
+   /* public void checkAuth(User user){
         LiveData<User> userLiveData = localRepo.userAuth(user.getEmail(), user.getPassword());
         userLiveData.observe((LifecycleOwner) view, new Observer<User>() {
             @Override
@@ -46,7 +44,7 @@ public class LoginPresenter {
         editor.commit();
     }
 
-    public void insertUser() {
-        localRepo.insertUser(new User("m@k.com","mohamed","11"));
-    }
+//    public void insertUser() {
+//        localRepo.insertUser(new User("m@k.com","mohamed","11"));
+//    }
 }

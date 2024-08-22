@@ -16,13 +16,14 @@ import android.widget.TextView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.Home.Repo.HomeRepoImpl;
+import com.example.foodplanner.database.LocalRepoImpl;
 import com.example.foodplanner.network.model.Category;
 import com.example.foodplanner.network.model.Meal;
 import com.example.foodplanner.Home.presenter.HomePresenter;
 
 import java.util.Arrays;
 
-public class HomeFragment extends Fragment implements IHome {
+public class HomeFragment extends Fragment implements IHome,HomeOnClickListener {
     int[] idsTxtView;
     int[] idsRView;
     View homeView;
@@ -31,7 +32,7 @@ public class HomeFragment extends Fragment implements IHome {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new HomePresenter(this,HomeRepoImpl.getInstance());
+        presenter = new HomePresenter(this, LocalRepoImpl.getInstance(getContext()),HomeRepoImpl.getInstance());
 
     }
 
@@ -107,9 +108,17 @@ public class HomeFragment extends Fragment implements IHome {
         RecyclerView recyclerView = homeView.findViewById(idsRView[counter]);
         LinearLayoutManager manager = new LinearLayoutManager(homeView.getContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
-        RecyclerAdapter adapter = new RecyclerAdapter(Arrays.asList(meals), homeView.getContext());
+        RecyclerAdapter adapter = new RecyclerAdapter(Arrays.asList(meals),this, homeView.getContext());
         recyclerView.setAdapter(adapter);
         counter++;
     }
 
+    @Override
+    public void favoriteBtnClicked(Meal meal) {
+        if (meal.isFavorite()){
+            presenter.insertFavorite(meal);
+        }else{
+            presenter.deleteFavorite(meal);
+        }
+    }
 }

@@ -51,10 +51,10 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = view.findViewById(R.id.favRecyclerView);
-        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
-        RecyclerAdapter adapter = new RecyclerAdapter(meals, view.getContext());
-        recyclerView.setAdapter(adapter);
+//        RecyclerView recyclerView = view.findViewById(R.id.favRecyclerView);
+//        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
+//        recyclerView.setLayoutManager(manager);
+//        RecyclerAdapter adapter = new RecyclerAdapter(meals, view.getContext());
+//        recyclerView.setAdapter(adapter);
     }
 }

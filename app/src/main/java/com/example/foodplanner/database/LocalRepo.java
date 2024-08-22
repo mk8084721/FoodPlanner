@@ -6,12 +6,16 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.foodplanner.Favorite.model.FavoriteMeal;
 import com.example.foodplanner.model.User;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+
 public interface LocalRepo {
-    public void insertUser(User... user);
-    public void updateUser(User... user);
-    public void deleteUser(User... user);
-    public LiveData<User> getUser(String email);
-    public LiveData<User> userAuth(String email , String password);
+    public void insertFavoriteMeal(FavoriteMeal... favoriteMeal);
+    public void updateFavoriteMeal(FavoriteMeal... favoriteMeal);
+    public void deleteFavoriteMeal(FavoriteMeal... favoriteMeal);
+    public Flowable<List<FavoriteMeal>> getFavoriteMeals();
 }

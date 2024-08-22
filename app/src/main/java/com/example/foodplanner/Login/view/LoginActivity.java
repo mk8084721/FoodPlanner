@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        presenter= new LoginPresenter(LocalRepoImpl.getInstance(this),this);
+        presenter= new LoginPresenter(this);
         String email = presenter.readSharedPreferance(this);
         if(email!=null){
             Intent intent = new Intent(this, HomeActivity.class);
