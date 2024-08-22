@@ -1,6 +1,5 @@
-package com.example.foodplanner.view;
+package com.example.foodplanner.unUsed;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

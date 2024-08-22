@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.foodplanner.database.LocalRepo;
-import com.example.foodplanner.model.User;
-import com.example.foodplanner.view.ILogin;
+import com.example.foodplanner.unUsed.ILogin;
 
 public class LoginPresenter {
     ILogin view;

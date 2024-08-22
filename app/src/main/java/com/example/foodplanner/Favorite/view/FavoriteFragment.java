@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.foodplanner.Favorite.Repo.FavoriteRepoImpl;
+import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.Favorite.presenter.FavoritePresenter;
 import com.example.foodplanner.Home.view.RecyclerAdapter;
 import com.example.foodplanner.R;
 import com.example.foodplanner.network.model.Meal;
@@ -20,24 +23,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
 
-public class FavoriteFragment extends Fragment {
 
-    List<Meal> meals;
+public class FavoriteFragment extends Fragment implements FavoriteOnClickListener,IFavoriteFragment {
 
+    List<FavoriteMeal> meals;
+    FavoriteAdapter adapter;
+    FavoritePresenter presenter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        meals = new ArrayList<>();
-        Meal meal= new Meal();
-        meal.setStrMeal("meal1");
-        meal.setStrMealThumb("https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg");
-        meal.setIdMeal("meal1");
-        meals.add(meal);
-        meals.add(meal);
-        meals.add(meal);
-        meals.add(meal);
-        meals.add(meal);
+        presenter= new FavoritePresenter(this ,FavoriteRepoImpl.getInstance(getContext()));
+        presenter.getAllMeals();
+        meals=new ArrayList<>();
     }
 
     @Override
@@ -51,10 +50,23 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        RecyclerView recyclerView = view.findViewById(R.id.favRecyclerView);
-//        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
-//        recyclerView.setLayoutManager(manager);
-//        RecyclerAdapter adapter = new RecyclerAdapter(meals, view.getContext());
-//        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = view.findViewById(R.id.favRecyclerView);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        adapter = new FavoriteAdapter(meals, this ,view.getContext());
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void removeMealFromFavorite(List<FavoriteMeal> meals, FavoriteMeal meal) {
+        presenter.removeFromFavorite(meal);
+        meals.remove(meal);
+        adapter.setMealsList(meals);
+
+    }
+
+    @Override
+    public void setMealsList(List<FavoriteMeal> favoriteMeals) {
+        adapter.setMealsList(favoriteMeals);
     }
 }

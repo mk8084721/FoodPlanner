@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Favorite.model.FavoriteMeal;
 import com.example.foodplanner.Home.view.HomeFragmentDirections;
 import com.example.foodplanner.Home.view.RecyclerAdapter;
 import com.example.foodplanner.R;
+import com.example.foodplanner.model.FavoriteMeals;
 import com.example.foodplanner.network.model.Meal;
 
 import java.net.MalformedURLException;
@@ -26,27 +29,27 @@ import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder>{
 
-    List<Meal> meals;
+    List<FavoriteMeal> meals;
     Context context;
-
-    public FavoriteAdapter(List<Meal> meals , Context context ) {
+    FavoriteOnClickListener listener;
+    public FavoriteAdapter(List<FavoriteMeal> meals ,FavoriteOnClickListener listener ,  Context context ) {
         this.meals = meals;
         this.context = context;
-
+        this.listener = listener;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup recycler, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(recycler.getContext());
         ViewHolder viewHolder;
-        viewHolder = new ViewHolder(inflater.inflate(R.layout.card_view,recycler,false));
+        viewHolder = new ViewHolder(inflater.inflate(R.layout.favorite_card_view,recycler,false));
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.mealName.setText(meals.get(position).getStrMeal());
-        String imgURl= meals.get(position).getStrMealThumb();
+        holder.mealName.setText(meals.get(position).getMealName());
+        String imgURl= meals.get(position).getMealImg();
         try {
             Glide.with(context).load(new URL(imgURl))
                     .apply(new RequestOptions().override(200,200)
@@ -59,54 +62,32 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
-                        .actionHomeFragmentToMealDetailsFragment(
-                                meals
-                                        .get(holder.getAdapterPosition())
-                                        .getIdMeal()
-                        );
-                Navigation.findNavController(view).navigate(action);
+                boolean internetConnection = false;
+                if(internetConnection){
+                    /*HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
+                            .actionHomeFragmentToMealDetailsFragment(
+                                    meals
+                                            .get(holder.getAdapterPosition())
+                                            .getIdMeal()
+                            );
+                    Navigation.findNavController(view).navigate(action);*/
+                }else {
+
+                }
+
             }
         });
-//        if(isFavoritePage){
-//            holder.favButton.setEnabled(true);
-//
-//        }else {
-//            if (products.get(position).isFav()) {
-//                holder.favButton.setEnabled(false);
-//            } else {
-//                holder.favButton.setEnabled(true);
-//            }
-//        }
-//        holder.favButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {listener.updateFavoriteStatus(products.get(holder.getAdapterPosition()),products,isFavoritePage);}
-//        });
-        //holder.img.setImageResource(products[position].getImages());
-//        AppDataBase db = AppDataBase.getInstance(context);
-//        ProductDAO productDAO = db.getProductDAO();
-//        if(!isFavoritePage) {
-//            ProductEntity product = products.get(holder.getAdapterPosition());
-//            product.setFav(true);
-//
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    productDAO.updateProduct(product);
-//                }
-//            }.start();
-//        }else{
-//            ProductEntity product = products.get(holder.getAdapterPosition());
-//            product.setFav(false);
-//
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    productDAO.updateProduct(product);
-//                    products.remove(product);
-//                }
-//            }.start();
-//        }
+        holder.favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.removeMealFromFavorite(meals,meals.get(holder.getAdapterPosition()));
+            }
+        });
+
+    }
+    public void setMealsList(List<FavoriteMeal> meals){
+        this.meals=meals;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -117,14 +98,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView mealName;
         ImageView img;
-        Button favButton;
+        ImageButton favButton;
         Button planBtn;
         CardView card;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mealName= itemView.findViewById(R.id.mealName);
             img= itemView.findViewById(R.id.mealImage);
-            favButton = itemView.findViewById(R.id.addToFav);
+            favButton = itemView.findViewById(R.id.favBtn);
             planBtn = itemView.findViewById(R.id.addToPlan);
             card = itemView.findViewById(R.id.card);
 

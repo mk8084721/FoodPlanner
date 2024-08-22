@@ -18,10 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.Register.view.RegisterActivity;
-import com.example.foodplanner.database.LocalRepoImpl;
 import com.example.foodplanner.Login.presenter.LoginPresenter;
 import com.example.foodplanner.view.HomeActivity;
-import com.example.foodplanner.view.ILogin;
+import com.example.foodplanner.unUsed.ILogin;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

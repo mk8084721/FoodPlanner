@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.foodplanner.Home.Repo.HomeLocalRepoImpl;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Home.Repo.HomeRepoImpl;
 import com.example.foodplanner.database.LocalRepoImpl;
@@ -32,7 +33,7 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new HomePresenter(this, LocalRepoImpl.getInstance(getContext()),HomeRepoImpl.getInstance());
+        presenter = new HomePresenter(this, HomeRepoImpl.getInstance() , HomeLocalRepoImpl.getInstance(getContext()));
 
     }
 

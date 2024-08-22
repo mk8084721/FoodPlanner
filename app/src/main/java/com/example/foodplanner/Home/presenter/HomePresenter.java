@@ -3,8 +3,6 @@ package com.example.foodplanner.Home.presenter;
 import com.example.foodplanner.Favorite.model.FavoriteMeal;
 import com.example.foodplanner.Home.Repo.HomeLocalRepo;
 import com.example.foodplanner.Home.Repo.HomeRepo;
-import com.example.foodplanner.Home.Repo.HomeNetworkCallback;
-import com.example.foodplanner.database.LocalRepo;
 import com.example.foodplanner.network.model.Category;
 import com.example.foodplanner.network.model.Meal;
 import com.example.foodplanner.Home.view.IHome;
@@ -14,16 +12,16 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePresenter {
-    private HomeRepo remoteRebo;
-    private LocalRepo localRepo;
+    private HomeRepo remoteRepo;
+    private HomeLocalRepo localRepo;
     private IHome view;
-    public HomePresenter(IHome view , LocalRepo localRepo, HomeRepo remoteDataSource) {
-        this.remoteRebo = remoteDataSource;
+    public HomePresenter(IHome view , HomeRepo homeRepo , HomeLocalRepo localRepo) {
+        this.remoteRepo = homeRepo;
         this.localRepo = localRepo;
         this.view = view;
     }
     public void getAllCategories(){
-        Observable<Category[]> observable = remoteRebo.getAllCategories();
+        Observable<Category[]> observable = remoteRepo.getAllCategories();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -33,7 +31,7 @@ public class HomePresenter {
                 );
     }
     public void filterByCategory(String category){
-        Observable<Meal[]> observable = remoteRebo.filterByCategoryCall(category);
+        Observable<Meal[]> observable = remoteRepo.filterByCategoryCall(category);
                 observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
@@ -44,10 +42,10 @@ public class HomePresenter {
     }
 
     public void insertFavorite(Meal meal) {
-        localRepo.insertFavoriteMeal(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
+        localRepo.insertFavorite(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
     }
 
     public void deleteFavorite(Meal meal) {
-        localRepo.deleteFavoriteMeal(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
+        localRepo.deleteFavorite(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
     }
 }
