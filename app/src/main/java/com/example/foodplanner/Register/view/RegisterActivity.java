@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.Register.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.foodplanner.view.RegisterFragment;
+import com.example.foodplanner.Login.view.LoginActivity;
+import com.example.foodplanner.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -45,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 createUser(emailTxt.getText().toString(),passwordTxt.getText().toString());
             }
         });

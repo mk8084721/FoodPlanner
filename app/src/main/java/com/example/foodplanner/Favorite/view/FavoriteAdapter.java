@@ -1,4 +1,4 @@
-package com.example.foodplanner.Home.view;
+package com.example.foodplanner.Favorite.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Home.view.HomeFragmentDirections;
+import com.example.foodplanner.Home.view.RecyclerAdapter;
 import com.example.foodplanner.R;
 import com.example.foodplanner.network.model.Meal;
 
@@ -22,11 +24,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder>{
+
     List<Meal> meals;
     Context context;
 
-    public RecyclerAdapter(List<Meal> meals , Context context ) {
+    public FavoriteAdapter(List<Meal> meals , Context context ) {
         this.meals = meals;
         this.context = context;
 
@@ -58,9 +61,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View view) {
                 HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
                         .actionHomeFragmentToMealDetailsFragment(
-                        meals
-                                .get(holder.getAdapterPosition())
-                                .getIdMeal()
+                                meals
+                                        .get(holder.getAdapterPosition())
+                                        .getIdMeal()
                         );
                 Navigation.findNavController(view).navigate(action);
             }
@@ -127,4 +130,5 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         }
     }
+
 }

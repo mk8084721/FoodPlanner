@@ -9,11 +9,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.foodplanner.LoginActivity;
+import com.example.foodplanner.Login.view.LoginActivity;
 import com.example.foodplanner.R;
-import com.example.foodplanner.database.AppDataBase;
-import com.example.foodplanner.database.FoodPlannerDao;
-import com.example.foodplanner.model.User;
 
 public class MainActivity extends AppCompatActivity {
 

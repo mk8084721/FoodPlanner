@@ -1,20 +1,12 @@
-package com.example.foodplanner.presenter;
+package com.example.foodplanner.Login.presenter;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 import com.example.foodplanner.database.LocalRepo;
-import com.example.foodplanner.database.LocalRepoImpl;
 import com.example.foodplanner.model.User;
 import com.example.foodplanner.view.ILogin;
-
-import java.util.List;
 
 public class LoginPresenter {
     LocalRepo localRepo;

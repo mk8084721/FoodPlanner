@@ -10,6 +10,10 @@
         android:icon="@drawable/search2"
         android:title="@string/search" />
     <item
+        android:id="@+id/favoriteFragment"
+        android:icon="@drawable/favorite"
+        android:title="@string/Favorite" />
+    <item
         android:id="@+id/planFragment"
         android:icon="@drawable/calender"
         android:title="@string/plan" />

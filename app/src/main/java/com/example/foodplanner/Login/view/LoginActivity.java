@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.Login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +16,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.foodplanner.R;
+import com.example.foodplanner.Register.view.RegisterActivity;
 import com.example.foodplanner.database.LocalRepoImpl;
-import com.example.foodplanner.presenter.LoginPresenter;
+import com.example.foodplanner.Login.presenter.LoginPresenter;
 import com.example.foodplanner.view.HomeActivity;
 import com.example.foodplanner.view.ILogin;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
