@@ -63,7 +63,13 @@ public class Meal implements Serializable {
     private String strType;
     ///////////////////////
     private boolean isFavorite;
+    ///////////////////////
+    private boolean isInPlan;
+    private static String WEEK_PLAN;
 
+    public Meal() {
+        WEEK_PLAN="0000000";
+    }
 
     @Override
     public String toString() {
@@ -126,6 +132,22 @@ public class Meal implements Serializable {
                 ", strDescription='" + strDescription + '\'' +"\n"+
                 ", strType='" + strType + '\'' +"\n"+
                 '}';
+    }
+
+    public boolean isInPlan() {
+        return isInPlan;
+    }
+
+    public void setInPlan(boolean inPlan) {
+        isInPlan = inPlan;
+    }
+
+    public static String getWeekPlan() {
+        return WEEK_PLAN;
+    }
+
+    public static void setWeekPlan(String weekPlan) {
+        WEEK_PLAN = weekPlan;
     }
 
     public boolean isFavorite() {

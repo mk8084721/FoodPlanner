@@ -39,6 +39,7 @@ public class LoginPresenter {
         SharedPreferences.Editor editor = storage.edit();
         editor.putInt("isLogedin",isLogedin);
         editor.putString("userEmail",email);
+        editor.putString("plan","0000000");
         editor.commit();
     }
 

@@ -1,5 +1,9 @@
 package com.example.foodplanner.Home.presenter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.foodplanner.Favorite.model.FavoriteMeal;
 import com.example.foodplanner.Home.Repo.HomeLocalRepo;
 import com.example.foodplanner.Home.Repo.HomeRepo;
@@ -81,5 +85,16 @@ public class HomePresenter {
 
     public void deleteFavorite(Meal meal) {
         localRepo.deleteFavorite(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
+    }
+
+    public String readPlanShP(Activity activity){
+        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        return storage.getString("plan","0000000");
+    }
+    public void writePlanShP(Activity activity , String plan){
+        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = storage.edit();
+        editor.putString("plan",plan);
+        editor.commit();
     }
 }

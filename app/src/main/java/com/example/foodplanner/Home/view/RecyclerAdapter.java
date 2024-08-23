@@ -87,7 +87,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 listener.favoriteBtnClicked(meal);
             }
         });
-
+        holder.planBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.showDaySelectionDialog(meals.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override

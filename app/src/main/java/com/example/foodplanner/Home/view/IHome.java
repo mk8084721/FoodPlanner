@@ -8,6 +8,4 @@ import java.util.Map;
 public interface IHome {
     public void setAllCategories(Category[] categories);
     public void filterByCategory(Map<String , Meal[]> mealMap);
-
-
 }
