@@ -25,6 +25,7 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     List<Meal> meals;
+    List<Meal[]>mealsArray;
     Context context;
     HomeOnClickListener listener;
 
@@ -33,6 +34,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.context = context;
         this.listener = listener;
     }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup recycler, int viewType) {
@@ -67,6 +74,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 Navigation.findNavController(view).navigate(action);
             }
         });
+        if(meals.get(holder.getAdapterPosition()).isFavorite()){
+            holder.favButton.setText("is favorite");
+        }else {
+            holder.favButton.setText("favorite");
+        }
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,45 +88,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
         });
 
-//        if(isFavoritePage){
-//            holder.favButton.setEnabled(true);
-//
-//        }else {
-//            if (products.get(position).isFav()) {
-//                holder.favButton.setEnabled(false);
-//            } else {
-//                holder.favButton.setEnabled(true);
-//            }
-//        }
-//        holder.favButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {listener.updateFavoriteStatus(products.get(holder.getAdapterPosition()),products,isFavoritePage);}
-//        });
-        //holder.img.setImageResource(products[position].getImages());
-//        AppDataBase db = AppDataBase.getInstance(context);
-//        ProductDAO productDAO = db.getProductDAO();
-//        if(!isFavoritePage) {
-//            ProductEntity product = products.get(holder.getAdapterPosition());
-//            product.setFav(true);
-//
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    productDAO.updateProduct(product);
-//                }
-//            }.start();
-//        }else{
-//            ProductEntity product = products.get(holder.getAdapterPosition());
-//            product.setFav(false);
-//
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    productDAO.updateProduct(product);
-//                    products.remove(product);
-//                }
-//            }.start();
-//        }
     }
 
     @Override

@@ -9,6 +9,10 @@ import com.example.foodplanner.network.RemoteRebo;
 import com.example.foodplanner.network.RemoteRepoImpl;
 import com.example.foodplanner.network.model.Meal;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+
 public class HomeLocalRepoImpl implements HomeLocalRepo{
     private LocalRepo localRepo;
     private static HomeLocalRepoImpl LocalDataSource = null;
@@ -33,4 +37,11 @@ public class HomeLocalRepoImpl implements HomeLocalRepo{
     public void deleteFavorite(FavoriteMeal meal) {
         localRepo.deleteFavoriteMeal(meal);
     }
+
+    @Override
+    public Flowable<List<FavoriteMeal>> getFavoriteMeals() {
+        return localRepo.getFavoriteMeals();
+    }
+
+
 }

@@ -22,19 +22,26 @@ import com.example.foodplanner.network.model.Category;
 import com.example.foodplanner.network.model.Meal;
 import com.example.foodplanner.Home.presenter.HomePresenter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment implements IHome,HomeOnClickListener {
     int[] idsTxtView;
     int[] idsRView;
     View homeView;
     HomePresenter presenter;
-    int counter = 0;
+    HomeAdapter adapter;
+    List<Map<String,Meal[]>> mealsList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new HomePresenter(this, HomeRepoImpl.getInstance() , HomeLocalRepoImpl.getInstance(getContext()));
-
+        mealsList = new ArrayList<>();
     }
 
     @Override
@@ -49,8 +56,14 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
         super.onViewCreated(view, savedInstanceState);
         presenter.getAllCategories();
         homeView=view;
-        Log.i("TAG", "filterByCategory: counter  "+counter);
-        idsTxtView = new int[]{
+
+        RecyclerView recyclerView = homeView.findViewById(R.id.homeRV);
+        LinearLayoutManager manager = new LinearLayoutManager(homeView.getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        adapter = new HomeAdapter(new ArrayList<>(),new HashMap<>(), this , homeView.getContext());
+        recyclerView.setAdapter(adapter);
+
+        /*idsTxtView = new int[]{
                 R.id.title1,
                 R.id.title2,
                 R.id.title3,
@@ -83,35 +96,37 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
                 R.id.rV13,
                 R.id.rV14,
                 R.id.rV15
-        };
+        };*/
 
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        counter=0;
     }
 
     @Override
     public void setAllCategories(Category[] categories) {
+        List<String> categoryList = new ArrayList<>();
         for (int i= 0; i< categories.length;i++){
-            TextView textView = homeView.findViewById(idsTxtView[i]);
             String categoryName = categories[i].getStrCategory();
-            textView.setText(categoryName);
-            presenter.filterByCategory(categoryName);
+            boolean errorCategory = presenter.filterByCategory(categoryName);
+            if (errorCategory){
+
+            }else{
+                categoryList.add(categoryName);
+            }
+            Log.i("TAG", "setAllCategories:  category List : \n"+categoryName);
+            adapter.setCategoryNames(categoryList);
         }
+
     }
 
     @Override
-    public void filterByCategory(Meal[] meals) {
-        Log.i("TAG", "filterByCategory: counter  "+counter);
-        RecyclerView recyclerView = homeView.findViewById(idsRView[counter]);
-        LinearLayoutManager manager = new LinearLayoutManager(homeView.getContext(), RecyclerView.HORIZONTAL, false);
-        recyclerView.setLayoutManager(manager);
-        RecyclerAdapter adapter = new RecyclerAdapter(Arrays.asList(meals),this, homeView.getContext());
-        recyclerView.setAdapter(adapter);
-        counter++;
+    public void filterByCategory(Map<String,Meal[]> mealMap) {
+        adapter.setMeals(mealMap);
+//        Log.i("TAG", "filterByCategory: counter  "+counter);
+//        RecyclerView recyclerView = homeView.findViewById(idsRView[counter]);
+//        LinearLayoutManager manager = new LinearLayoutManager(homeView.getContext(), RecyclerView.HORIZONTAL, false);
+//        recyclerView.setLayoutManager(manager);
+//        RecyclerAdapter adapter = new RecyclerAdapter(Arrays.asList(meals),this, homeView.getContext());
+//        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
