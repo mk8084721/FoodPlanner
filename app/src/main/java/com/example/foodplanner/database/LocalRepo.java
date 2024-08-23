@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.WeekPlan.model.PlanMeal;
 import com.example.foodplanner.model.User;
 
 import java.util.List;
@@ -18,4 +19,12 @@ public interface LocalRepo {
     public void updateFavoriteMeal(FavoriteMeal... favoriteMeal);
     public void deleteFavoriteMeal(FavoriteMeal... favoriteMeal);
     public Flowable<List<FavoriteMeal>> getFavoriteMeals();
+
+    //plan
+
+    public Flowable<List<PlanMeal>> getPlanMeals();
+    public Flowable<PlanMeal> getPlanMealByDayId(String dayId);
+    public void insertPlanMeal(PlanMeal... planMeals);
+    public void updatePlanMeal(PlanMeal... planMeals);
+    public void deletePlanMeal(PlanMeal... planMeals);
 }

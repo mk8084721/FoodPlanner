@@ -108,6 +108,7 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
 
     @Override
     public void setAllCategories(Category[] categories) {
+        Log.i("KTAG", "setAllCategories: "+Meal.getWeekPlan());
         List<String> categoryList = new ArrayList<>();
         for (int i= 0; i< categories.length;i++){
             String categoryName = categories[i].getStrCategory();
@@ -137,6 +138,7 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
 
     @Override
     public void favoriteBtnClicked(Meal meal) {
+        Log.i("KTAG", "favoriteBtnClicked: "+Meal.getWeekPlan());
         if (meal.isFavorite()){
             presenter.insertFavorite(meal);
         }else{
@@ -153,8 +155,8 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
     public void showDaySelectionDialog(Meal meal) {
         // Generate the list of days for the current week
         ArrayList<String> daysOfWeek = getDaysOfWeek();
-        StringBuffer weekPlan =new StringBuffer(Meal.getWeekPlan());
-        Log.i("KTAG", "showDaySelectionDialog: \n"+ Meal.getWeekPlan());
+        StringBuffer weekPlan =new StringBuffer(presenter.readPlanShP(getActivity()));
+        Log.i("KTAG", "showDaySelectionDialog: \n"+ weekPlan);
         StringBuffer emptyDays = new StringBuffer();
 
         int daysCount =0;

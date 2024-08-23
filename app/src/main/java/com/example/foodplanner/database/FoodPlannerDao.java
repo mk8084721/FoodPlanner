@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.WeekPlan.model.PlanMeal;
 import com.example.foodplanner.model.User;
 
 import java.util.List;
@@ -28,10 +29,22 @@ public interface FoodPlannerDao {
     LiveData<User> userAuth(String email, String password);*/
     @Query("SELECT * FROM FavoriteMeal")
     public Flowable<List<FavoriteMeal>> getFavoriteMeals();
-    @Insert
+    @Insert(entity = FavoriteMeal.class)
     public void insertFavoriteMeal(FavoriteMeal... favoriteMeal);
-    @Update
+    @Update(entity = FavoriteMeal.class)
     public void updateFavoriteMeal(FavoriteMeal... favoriteMeal);
-    @Delete
+    @Delete(entity = FavoriteMeal.class)
     public void deleteFavoriteMeal(FavoriteMeal... favoriteMeal);
+    ///Plan
+    @Query("SELECT * FROM PlanMeal")
+    public Flowable<List<PlanMeal>> getPlanMeals();
+    @Query("SELECT * FROM PlanMeal WHERE dayId = :dayId")
+    public Flowable<PlanMeal> getPlanMealByDayId(String dayId);
+    @Insert(entity = PlanMeal.class)
+    public void insertPlanMeal(PlanMeal... planMeals);
+    @Update(entity = PlanMeal.class)
+    public void updatePlanMeal(PlanMeal... planMeals);
+    @Delete(entity = PlanMeal.class)
+    public void deletePlanMeal(PlanMeal... planMeals);
+
 }

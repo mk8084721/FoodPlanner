@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.WeekPlan.model.PlanMeal;
 import com.example.foodplanner.model.User;
 
 import java.util.List;
@@ -83,8 +84,35 @@ public class LocalRepoImpl implements LocalRepo{
 
     }
 
+    ///////////plan
+
     @Override
     public Flowable<List<FavoriteMeal>> getFavoriteMeals() {
         return dao.getFavoriteMeals();
+    }
+
+    @Override
+    public Flowable<List<PlanMeal>> getPlanMeals() {
+        return dao.getPlanMeals();
+    }
+
+    @Override
+    public Flowable<PlanMeal> getPlanMealByDayId(String dayId) {
+        return dao.getPlanMealByDayId(dayId);
+    }
+
+    @Override
+    public void insertPlanMeal(PlanMeal... planMeals) {
+        dao.insertPlanMeal(planMeals);
+    }
+
+    @Override
+    public void updatePlanMeal(PlanMeal... planMeals) {
+        dao.updatePlanMeal(planMeals);
+    }
+
+    @Override
+    public void deletePlanMeal(PlanMeal... planMeals) {
+        dao.deletePlanMeal(planMeals);
     }
 }
