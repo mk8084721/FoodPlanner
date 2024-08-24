@@ -46,19 +46,6 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
 
-
-            <ImageButton
-                android:id="@+id/favBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="8"
-                android:background="@color/non"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/favorite_img_btn_active" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -6,44 +6,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register.view.RegisterActivity">
+
     <EditText
         android:id="@+id/registerEmailTxt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
+        android:background="@color/backgroundTxt"
         android:ems="10"
-        android:inputType="text"
+        android:gravity="center"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/registerPasswordTxt"
-        app:layout_constraintStart_toStartOf="@+id/registerPasswordTxt" />
+        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
+        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView" />
 
     <EditText
         android:id="@+id/registerPasswordTxt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
+        android:background="@color/backgroundTxt"
         android:ems="10"
+        android:gravity="center"
+        android:hint="@string/pass"
         android:inputType="textPassword"
+        android:textColorLink="@color/oranngeBackground"
         app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/registerEmailTxt" />
 
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/mainOrange"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/googleRegister"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="@string/google"
-        app:layout_constraintStart_toEndOf="@+id/register"
-        app:layout_constraintTop_toTopOf="@+id/register" />
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/alexandria_extrabold"
+        android:text="@string/register"
+        android:textColor="@color/mainOrange"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        Of="parent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/register_anim_1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

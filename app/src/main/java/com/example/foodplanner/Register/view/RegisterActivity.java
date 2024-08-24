@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         Button registerBtn = findViewById(R.id.register);
-        Button googleRegisterBtn = findViewById(R.id.googleRegister);
         emailTxt = findViewById(R.id.registerEmailTxt);
         passwordTxt = findViewById(R.id.registerPasswordTxt);
 
@@ -49,12 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                 createUser(emailTxt.getText().toString(),passwordTxt.getText().toString());
             }
         });
-        googleRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
     }
 

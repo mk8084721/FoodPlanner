@@ -23,12 +23,17 @@ import com.example.foodplanner.MealDetails.model.Ingredient;
 import com.example.foodplanner.MealDetails.presenter.MealPresenter;
 import com.example.foodplanner.R;
 import com.example.foodplanner.network.model.Meal;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MealDetailsFragment extends Fragment implements IMealDetails{
@@ -38,6 +43,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetails{
     TextView mealName;
     TextView mealDetails;
     ImageView mealImage;
+    YouTubePlayerView youTubePlayerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,9 @@ public class MealDetailsFragment extends Fragment implements IMealDetails{
         mealName = view.findViewById(R.id.MealName);
         mealDetails = view.findViewById(R.id.mealDetails);
         mealImage = view.findViewById(R.id.mealDetailsImage);
+        youTubePlayerView = view.findViewById(R.id.youtubePlayerView);
+        getLifecycle().addObserver(youTubePlayerView);
+
     }
 
     @Override
@@ -94,5 +103,31 @@ public class MealDetailsFragment extends Fragment implements IMealDetails{
         IngredientRA adapter = new IngredientRA(ingredients,measures, mealView.getContext());
         recyclerView.setAdapter(adapter);
 
+        String videoUrl = meal.getStrYoutube();
+        String videoId = extractYouTubeVideoId(videoUrl);
+
+        if (videoId != null) {
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    youTubePlayer.cueVideo(videoId, 0);
+                }
+            });
+        }
+
+    }
+    // Utility method to extract the video ID from a YouTube URL
+    private String extractYouTubeVideoId(String url) {
+        String videoId = null;
+        String pattern = "^(?:https?://)?(?:www\\.|m\\.)?(?:youtube\\.com/watch\\?v=|youtu\\.be/)([\\w-]{11}).*$";
+
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(url);
+
+        if (matcher.matches()) {
+            videoId = matcher.group(1);
+        }
+
+        return videoId;
     }
 }

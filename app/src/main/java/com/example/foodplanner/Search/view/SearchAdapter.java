@@ -37,7 +37,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup recycler, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(recycler.getContext());
         ViewHolder viewHolder;
-        viewHolder = new ViewHolder(inflater.inflate(R.layout.favorite_card_view,recycler,false));
+        viewHolder = new ViewHolder(inflater.inflate(R.layout.search_card_layout,recycler,false));
         return viewHolder;
     }
 

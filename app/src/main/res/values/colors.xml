@@ -5,4 +5,6 @@
     <color name="mainOrange">#FE6535</color>
     <color name="non">#00000000</color>
     <color name="oranngeBackground">#8FFF5722</color>
+    <color name="background">#9B9999</color>
+    <color name="backgroundTxt">#80BCB9B8</color>
 </resources>

@@ -9,6 +9,7 @@ public class PlanMeal {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
+    private static String userEmail;
     private String dayId;
     private String mealId;
     private String mealName;
@@ -38,6 +39,14 @@ public class PlanMeal {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public static String getUserEmail() {
+        return userEmail;
+    }
+
+    public static void setUserEmail(String userEmail) {
+        PlanMeal.userEmail = userEmail;
     }
 
     public String getDayId() {
