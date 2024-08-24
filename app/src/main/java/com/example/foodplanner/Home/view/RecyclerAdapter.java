@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
@@ -111,7 +110,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             mealName= itemView.findViewById(R.id.mealName);
             img= itemView.findViewById(R.id.mealImage);
             favButton = itemView.findViewById(R.id.addToFav);
-            planBtn = itemView.findViewById(R.id.addToPlan);
+            planBtn = itemView.findViewById(R.id.removeFromPlan);
             card = itemView.findViewById(R.id.card);
 
         }

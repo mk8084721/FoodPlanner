@@ -97,4 +97,8 @@ public class HomePresenter {
         editor.putString("plan",plan);
         editor.commit();
     }
+
+    public void updatePlanMeal(Meal meal, int selectedDay) {
+        localRepo.updatePlanMeal(meal,selectedDay);
+    }
 }

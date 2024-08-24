@@ -12,4 +12,6 @@ public interface HomeLocalRepo {
     public void deleteFavorite(FavoriteMeal meal);
 
     Flowable<List<FavoriteMeal>> getFavoriteMeals();
+
+    void updatePlanMeal(Meal meal, int selectedDay);
 }

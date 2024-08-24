@@ -19,6 +19,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Register.view.RegisterActivity;
 import com.example.foodplanner.Login.presenter.LoginPresenter;
+import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.database.AppDataBase;
+import com.example.foodplanner.database.LocalRepoImpl;
 import com.example.foodplanner.view.HomeActivity;
 import com.example.foodplanner.unUsed.ILogin;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -51,12 +54,18 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        presenter= new LoginPresenter(this);
+
+        presenter= new LoginPresenter(this , LocalRepoImpl.getInstance(this));
+
+
         String email = presenter.readSharedPreferance(this);
         if(email!=null){
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("userEmail",email);
             startActivity(intent);
+        }else {
+            Log.i("JTAG", "onCreate: ");
+            presenter.insertEmptyPlanDays();
         }
 
         getSupportActionBar().hide();
@@ -110,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         presenter.writeInSharedPreferance(LoginActivity.this,1,email);
+                        presenter.insertEmptyPlanDays();
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("userEmail",email);
                         startActivity(intent);

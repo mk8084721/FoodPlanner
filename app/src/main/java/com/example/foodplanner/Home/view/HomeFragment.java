@@ -69,40 +69,6 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
         adapter = new HomeAdapter(new ArrayList<>(),new HashMap<>(), this , homeView.getContext());
         recyclerView.setAdapter(adapter);
 
-        /*idsTxtView = new int[]{
-                R.id.title1,
-                R.id.title2,
-                R.id.title3,
-                R.id.title4,
-                R.id.title5,
-                R.id.title6,
-                R.id.title7,
-                R.id.title8,
-                R.id.title9,
-                R.id.title10,
-                R.id.title11,
-                R.id.title12,
-                R.id.title13,
-                R.id.title14,
-                R.id.title15
-        };
-        idsRView = new int[]{
-                R.id.rV1,
-                R.id.rV2,
-                R.id.rV3,
-                R.id.rV4,
-                R.id.rV5,
-                R.id.rV6,
-                R.id.rV7,
-                R.id.rV8,
-                R.id.rV9,
-                R.id.rV10,
-                R.id.rV11,
-                R.id.rV12,
-                R.id.rV13,
-                R.id.rV14,
-                R.id.rV15
-        };*/
 
     }
 
@@ -149,6 +115,7 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
 
     public void addToPlanClicked(Meal meal, int selectedDay) {
         presenter.writePlanShP(getActivity(),Meal.getWeekPlan());
+        presenter.updatePlanMeal(meal,selectedDay);
         Log.i("TAG", "addToPlanClicked: \nPlan : "+Meal.getWeekPlan()+"\n selectedDay :"+selectedDay);
     }
     @Override

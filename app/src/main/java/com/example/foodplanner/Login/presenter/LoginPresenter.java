@@ -4,13 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.database.LocalRepo;
+import com.example.foodplanner.database.LocalRepoImpl;
 import com.example.foodplanner.unUsed.ILogin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPresenter {
     ILogin view;
-
-    public LoginPresenter( ILogin view) {
+    LocalRepo localRepo;
+    public LoginPresenter( ILogin view , LocalRepo localRepo) {
         this.view = view;
+        this.localRepo = localRepo;
     }
    /* public void checkAuth(User user){
         LiveData<User> userLiveData = localRepo.userAuth(user.getEmail(), user.getPassword());
@@ -41,6 +48,11 @@ public class LoginPresenter {
         editor.putString("userEmail",email);
         editor.putString("plan","0000000");
         editor.commit();
+    }
+    public void insertEmptyPlanDays(){
+        for(int i = 0 ; i<7 ; i++){
+            localRepo.insertPlanMeal(new PlanMeal(String.valueOf(i),"","",""));
+        }
     }
 
 //    public void insertUser() {

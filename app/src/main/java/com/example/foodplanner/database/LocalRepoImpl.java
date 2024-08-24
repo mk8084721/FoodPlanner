@@ -1,6 +1,8 @@
 package com.example.foodplanner.database;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 
@@ -10,7 +12,9 @@ import com.example.foodplanner.model.User;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class LocalRepoImpl implements LocalRepo{
     private FoodPlannerDao dao;
@@ -103,16 +107,63 @@ public class LocalRepoImpl implements LocalRepo{
 
     @Override
     public void insertPlanMeal(PlanMeal... planMeals) {
-        dao.insertPlanMeal(planMeals);
+        Flowable<List<PlanMeal>> flowable = getPlanMeals();
+        flowable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        planMeals1 -> {
+                            if(planMeals1.size()<2){
+                                new Thread(){
+                                    @Override
+                                    public void run() {
+                                        dao.insertPlanMeal(planMeals);
+                                    }
+                                }.start();
+                            }
+                        }
+                );
     }
 
     @Override
     public void updatePlanMeal(PlanMeal... planMeals) {
-        dao.updatePlanMeal(planMeals);
+        new Thread(){
+            @Override
+            public void run() {
+                dao.updatePlanMeal(planMeals);
+            }
+        }.start();
+
     }
 
     @Override
     public void deletePlanMeal(PlanMeal... planMeals) {
-        dao.deletePlanMeal(planMeals);
+        new Thread(){
+            @Override
+            public void run() {
+                dao.deletePlanMeal(planMeals);
+
+            }
+        }.start();
+    }
+
+    ///////////ShP
+
+    @Override
+    public String readPlanShP(Activity activity){
+        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        return storage.getString("plan","0000000");
+    }
+
+    @Override
+    public Flowable<List<PlanMeal>> getMealsInPlan(String emptyString) {
+        return dao.getMealsInPlan(emptyString);
+    }
+
+    @Override
+    public void writePlanShP(Activity activity , String plan){
+        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = storage.edit();
+        editor.putString("plan",plan);
+        editor.commit();
     }
 }

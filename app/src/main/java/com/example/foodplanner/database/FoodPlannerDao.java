@@ -40,6 +40,10 @@ public interface FoodPlannerDao {
     public Flowable<List<PlanMeal>> getPlanMeals();
     @Query("SELECT * FROM PlanMeal WHERE dayId = :dayId")
     public Flowable<PlanMeal> getPlanMealByDayId(String dayId);
+    @Query("SELECT * FROM PlanMeal WHERE mealName != :emptyString")
+    public Flowable<List<PlanMeal>> getMealsInPlan(String emptyString);
+    @Query("UPDATE PlanMeal SET mealId = :mealId , mealName= :mealName, mealImg= :mealImg WHERE dayId = :dayId;")
+    public void updatePlanMealByDayId(String mealId , String mealImg , String mealName , String dayId);
     @Insert(entity = PlanMeal.class)
     public void insertPlanMeal(PlanMeal... planMeals);
     @Update(entity = PlanMeal.class)

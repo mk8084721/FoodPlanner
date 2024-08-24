@@ -62,7 +62,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.categoryName.setText(categoryNames.get(position));
         LinearLayoutManager manager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
         holder.mealRV.setLayoutManager(manager);
-        if (mealMap.size()>11){
+        if (mealMap.size()>12){
             RecyclerAdapter adapter = new RecyclerAdapter(Arrays.asList(mealMap.get(categoryNames.get(holder.getAdapterPosition()))), homeListener, context);
             holder.mealRV.setAdapter(adapter);
         }

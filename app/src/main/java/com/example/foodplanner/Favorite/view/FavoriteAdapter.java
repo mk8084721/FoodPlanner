@@ -11,17 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.Favorite.model.FavoriteMeal;
-import com.example.foodplanner.Home.view.HomeFragmentDirections;
-import com.example.foodplanner.Home.view.RecyclerAdapter;
 import com.example.foodplanner.R;
-import com.example.foodplanner.model.FavoriteMeals;
-import com.example.foodplanner.network.model.Meal;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -106,7 +101,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             mealName= itemView.findViewById(R.id.mealName);
             img= itemView.findViewById(R.id.mealImage);
             favButton = itemView.findViewById(R.id.favBtn);
-            planBtn = itemView.findViewById(R.id.addToPlan);
+            planBtn = itemView.findViewById(R.id.removeFromPlan);
             card = itemView.findViewById(R.id.card);
 
         }

@@ -19,5 +19,6 @@
     <string name="google_id_from">1026804517930-hrrjr2rkloc5ata9lpvqgf80ug8nnb0n</string>
     <string name="meal">Meal</string>
     <string name="Favorite">Favorite</string>
+    <string name="removeFromPlan">Remove From Plan</string>
 
 </resources>

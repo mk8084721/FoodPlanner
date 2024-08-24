@@ -1,11 +1,14 @@
 package com.example.foodplanner.WeekPlan.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class PlanMeal {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    private int id;
     private String dayId;
     private String mealId;
     private String mealName;
@@ -16,6 +19,25 @@ public class PlanMeal {
         this.mealId = mealId;
         this.mealName = mealName;
         this.mealImg = mealImg;
+    }
+
+    @Override
+    public String toString() {
+        return "PlanMeal{" +
+                "id=" + id +
+                ", dayId='" + dayId + '\'' +
+                ", mealId='" + mealId + '\'' +
+                ", mealName='" + mealName + '\'' +
+                ", mealImg='" + mealImg + '\'' +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDayId() {
