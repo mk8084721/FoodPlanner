@@ -20,5 +20,9 @@
     <string name="meal">Meal</string>
     <string name="Favorite">Favorite</string>
     <string name="removeFromPlan">Remove From Plan</string>
+    <string name="Area">Area</string>
+    <string name="Ingredient">Ingredient</string>
+    <string name="MealName">Meal Name</string>
+    <string name="category">Category</string>
 
 </resources>

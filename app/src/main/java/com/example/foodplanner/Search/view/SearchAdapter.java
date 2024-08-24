@@ -1,4 +1,4 @@
-package com.example.foodplanner.Home.view;
+package com.example.foodplanner.Search.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,41 +11,33 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Favorite.view.FavoriteOnClickListener;
 import com.example.foodplanner.R;
 import com.example.foodplanner.network.model.Meal;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
+
     List<Meal> meals;
-    List<Meal[]>mealsArray;
     Context context;
-    HomeOnClickListener listener;
-
-    public RecyclerAdapter(List<Meal> meals ,HomeOnClickListener listener, Context context ) {
-        this.meals = meals;
+    public SearchAdapter(Context context) {
         this.context = context;
-        this.listener = listener;
+        this.meals=new ArrayList<>();
     }
-
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup recycler, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(recycler.getContext());
         ViewHolder viewHolder;
-        viewHolder = new ViewHolder(inflater.inflate(R.layout.card_view,recycler,false));
+        viewHolder = new ViewHolder(inflater.inflate(R.layout.favorite_card_view,recycler,false));
         return viewHolder;
     }
 
@@ -65,32 +57,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
-                        .actionHomeFragmentToMealDetailsFragment(
-                        meals
-                                .get(holder.getAdapterPosition())
-                                .getIdMeal()
-                        );
-                Navigation.findNavController(view).navigate(action);
-            }
-        });
+                boolean internetConnection = false;
+                if(internetConnection){
+                    /*HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
+                            .actionHomeFragmentToMealDetailsFragment(
+                                    meals
+                                            .get(holder.getAdapterPosition())
+                                            .getIdMeal()
+                            );
+                    Navigation.findNavController(view).navigate(action);*/
+                }else {
 
-        holder.favButton.setImageResource(meals.get(holder.getAdapterPosition()).isFavorite()? R.drawable.favorite_img_btn_active : R.drawable.favorite_img_btn);
-        holder.favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Meal meal = meals.get(holder.getAdapterPosition());
-                meal.setFavorite(!meal.isFavorite());
-                notifyDataSetChanged();
-                listener.favoriteBtnClicked(meal);
+                }
+
             }
         });
-        holder.planBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.showDaySelectionDialog(meals.get(holder.getAdapterPosition()));
-            }
-        });
+//        holder.favButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                listener.removeMealFromFavorite(meals,meals.get(holder.getAdapterPosition()));
+//            }
+//        });
+
+    }
+    public void setMealsList(List<Meal> meals){
+        this.meals=meals;
+        notifyDataSetChanged();
     }
 
     @Override

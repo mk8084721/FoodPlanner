@@ -104,6 +104,21 @@ public class RemoteRepoImpl implements RemoteRebo{
     }
 
     @Override
+    public Observable<Meals> getMealByName(String name) {
+        return mealService.getMealByName(name);
+    }
+
+    @Override
+    public Observable<Meals> filterByIngredient(String ingredient) {
+        return mealService.filterByIngredient(ingredient);
+    }
+
+    @Override
+    public Observable<Meals> filterByArea(String area) {
+        return mealService.filterByArea(area);
+    }
+
+    @Override
     public Observable<Meal[]> filterByCategoryCall(String category) {
         return mealService.filterByCategory(category).map(c -> c.getMeals());
     }

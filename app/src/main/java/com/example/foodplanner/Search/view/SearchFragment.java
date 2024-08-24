@@ -2,59 +2,48 @@ package com.example.foodplanner.Search.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.example.foodplanner.Favorite.view.FavoriteAdapter;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Search.Repo.SearchRemoteRepoImpl;
+import com.example.foodplanner.Search.presenter.SearchPresenter;
+import com.example.foodplanner.network.model.Meal;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SearchFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class SearchFragment extends Fragment implements ISearch{
 
-    public SearchFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    SearchPresenter presenter;
+    ChipGroup chipGroup;
+    SearchAdapter adapter;
+    String chipText;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        presenter = new SearchPresenter(SearchRemoteRepoImpl.getInstance(),this);
+        chipText="";
     }
 
     @Override
@@ -62,5 +51,84 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        EditText searchTxt =  view.findViewById(R.id.searchTxt);
+        chipGroup = view.findViewById(R.id.chipGroup);
+        ///
+        RecyclerView recyclerView = view.findViewById(R.id.searchRV);
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        adapter = new SearchAdapter(getContext());
+        recyclerView.setAdapter(adapter);
+        /////
+        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId != -1) {
+                Chip selectedChip = group.findViewById(checkedId);
+                chipText = selectedChip.getText().toString();
+            }
+        });
+        ////
+        Observable.create(emitter -> {
+                    searchTxt.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            /*chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                                if (checkedId != -1) {
+                                    Chip selectedChip = group.findViewById(checkedId);
+                                    String chipText = selectedChip.getText().toString();
+                                    Log.i("STAG", "onTextChanged: checked id = "+checkedId);
+                                    // Handle the selected chip action here
+                                    if(checkedId==0){
+                                        emitter.onNext(s);
+                                    } else if (checkedId == 1) {
+                                        emitter.onNext(s);
+                                    }else {
+                                        emitter.onNext(s);
+                                    }
+                                }
+                            });*/
+
+                            List<String> newNames = new ArrayList<>();
+                            newNames.add(s.toString().toLowerCase());
+                            emitter.onNext(newNames);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+                }).debounce(1000, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s->searchData((List<String>) s));/*s -> adapter.setList((ArrayList<String>) s)*/ //s-> Log.i("STAG", "onViewCreated: "+s));
+
+
+    }
+    public void searchData(List<String> data){
+        Log.i("STAG", "searchData: "+data);
+        // Handle the selected chip action here
+        if(chipText.equals("Area")){
+            presenter.filterByArea(data.get(0).toLowerCase());
+        } else if (chipText.equals("Ingredient")) {
+            presenter.filterByIngredient(data.get(0).toLowerCase());
+        }else if(chipText.equals("Category")){
+            presenter.filterByCategory(data.get(0).toLowerCase());
+        }else{
+            presenter.getMealByName(data.get(0));
+        }
+    }
+
+    @Override
+    public void setSearchResult(Meal[] meals) {
+        adapter.setMealsList(Arrays.asList(meals));
     }
 }
