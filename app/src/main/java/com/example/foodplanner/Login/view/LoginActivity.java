@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
 
         String email = presenter.readSharedPreferance(this);
-        if(email!=null){
+        if(email!=null&&!email.equals("")&&!email.isEmpty()){
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("userEmail",email);
             startActivity(intent);

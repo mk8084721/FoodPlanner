@@ -74,10 +74,10 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        holder.card.setOnClickListener(new View.OnClickListener() {
+        /*holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
+                PlanFragmentDirections.ActionPlanFragmentToMealDetailsFragment action = PlanFragmentDirections
                         .actionHomeFragmentToMealDetailsFragment(
                                 meals
                                         .get(holder.getAdapterPosition())
@@ -85,7 +85,7 @@ public class PlanRecyclerAdapter extends RecyclerView.Adapter<PlanRecyclerAdapte
                         );
                 Navigation.findNavController(view).navigate(action);
             }
-        });
+        });*/
         holder.rmvFromPlanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

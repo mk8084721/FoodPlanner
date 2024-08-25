@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Favorite.Repo.FavoriteRepoImpl;
 import com.example.foodplanner.Home.view.RecyclerAdapter;
 import com.example.foodplanner.MealDetails.Repo.MealRepoImpl;
 import com.example.foodplanner.MealDetails.model.Ingredient;
@@ -43,12 +45,13 @@ public class MealDetailsFragment extends Fragment implements IMealDetails{
     TextView mealName;
     TextView mealDetails;
     ImageView mealImage;
+    ImageButton favBtn;
     YouTubePlayerView youTubePlayerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new MealPresenter(this,MealRepoImpl.getInstance());
+        presenter = new MealPresenter(this, FavoriteRepoImpl.getInstance(getContext()),MealRepoImpl.getInstance());
     }
 
     @Override
@@ -65,10 +68,12 @@ public class MealDetailsFragment extends Fragment implements IMealDetails{
         Log.i("TAG", "onViewCreated: "+mealId);
         presenter.getMealWithId(mealId);
         mealView = view;
+
         mealName = view.findViewById(R.id.MealName);
         mealDetails = view.findViewById(R.id.mealDetails);
         mealImage = view.findViewById(R.id.mealDetailsImage);
         youTubePlayerView = view.findViewById(R.id.youtubePlayerView);
+        favBtn = view.findViewById(R.id.favBtn);
         getLifecycle().addObserver(youTubePlayerView);
 
     }
@@ -84,7 +89,7 @@ public class MealDetailsFragment extends Fragment implements IMealDetails{
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-
+        favBtn.setImageResource(meal.isFavorite()? R.drawable.favorite_img_btn_active : R.drawable.favorite_img_btn);
         mealName.setText(meal.getStrMeal());
         mealDetails.setText(
                 "Area :\n\n"+"      "+meal.getStrArea()+"\n\n"+

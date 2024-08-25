@@ -160,6 +160,22 @@ public class LocalRepoImpl implements LocalRepo{
     }
 
     @Override
+    public void rmvLocalData(Activity activity ,Context context) {
+        AppDataBase.getInstance(context).clearAllTables();
+        clearShP(activity,context);
+    }
+
+    private void clearShP(Activity activity ,Context context) {
+        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = storage.edit();
+        editor.putInt("isLogedin",0);
+        editor.putString("userEmail","");
+        editor.putString("plan","0000000");
+        editor.putInt("isGuest",0);
+        editor.commit();
+    }
+
+    @Override
     public void writePlanShP(Activity activity , String plan){
         SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = storage.edit();

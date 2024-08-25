@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.Favorite.view.FavoriteOnClickListener;
+import com.example.foodplanner.Home.view.HomeFragmentDirections;
 import com.example.foodplanner.R;
 import com.example.foodplanner.network.model.Meal;
 
@@ -57,19 +59,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean internetConnection = false;
-                if(internetConnection){
-                    /*HomeFragmentDirections.ActionHomeFragmentToMealDetailsFragment action = HomeFragmentDirections
-                            .actionHomeFragmentToMealDetailsFragment(
-                                    meals
-                                            .get(holder.getAdapterPosition())
-                                            .getIdMeal()
-                            );
-                    Navigation.findNavController(view).navigate(action);*/
-                }else {
-
-                }
-
+                SearchFragmentDirections.ActionSearchFragmentToMealDetailsFragment action = SearchFragmentDirections
+                        .actionSearchFragmentToMealDetailsFragment(
+                                meals
+                                        .get(holder.getAdapterPosition())
+                                        .getIdMeal()
+                        );
+                Navigation.findNavController(view).navigate(action);
             }
         });
 //        holder.favButton.setOnClickListener(new View.OnClickListener() {

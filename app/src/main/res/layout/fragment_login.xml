@@ -118,10 +118,10 @@
             android:text="Button"
             android:textColor="@color/mainOrange"
             app:layout_constraintStart_toStartOf="@+id/emailTxt"
-            app:layout_constraintTop_toTopOf="@+id/button3" />
+            app:layout_constraintTop_toTopOf="@+id/guestBtn" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/guestBtn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

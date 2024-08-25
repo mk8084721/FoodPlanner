@@ -24,5 +24,8 @@
     <string name="Ingredient">Ingredient</string>
     <string name="MealName">Meal Name</string>
     <string name="category">Category</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="guest">Guest\n</string>
 
 </resources>

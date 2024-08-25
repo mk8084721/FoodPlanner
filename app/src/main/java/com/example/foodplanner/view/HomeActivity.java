@@ -2,6 +2,7 @@ package com.example.foodplanner.view;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        getSupportActionBar().hide();
 //        ActionBar actionBar = getSupportActionBar();
 //        if (actionBar != null) {
 //            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

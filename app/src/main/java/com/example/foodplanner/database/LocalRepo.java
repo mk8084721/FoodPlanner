@@ -1,6 +1,7 @@
 package com.example.foodplanner.database;
 
 import android.app.Activity;
+import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Delete;
@@ -32,4 +33,6 @@ public interface LocalRepo {
     public void writePlanShP(Activity activity , String plan);
     public String readPlanShP(Activity activity);
     public Flowable<List<PlanMeal>> getMealsInPlan(String emptyString);
+
+    void rmvLocalData(Activity activity ,Context context);
 }

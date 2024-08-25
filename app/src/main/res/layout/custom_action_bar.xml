@@ -7,18 +7,17 @@
     android:layout_height="wrap_content"
     android:gravity="center">
 
-    <!-- Add your custom views here -->
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="68dp"
-        android:layout_height="61dp"
+    <ImageButton
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="8"
+        android:background="@color/non"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile" />
 </androidx.constraintlayout.widget.ConstraintLayout>

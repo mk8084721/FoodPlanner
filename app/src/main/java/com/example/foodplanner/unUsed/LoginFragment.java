@@ -1,26 +1,11 @@
 package com.example.foodplanner.unUsed;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-
-import com.example.foodplanner.Login.view.ILogin;
-import com.example.foodplanner.R;
-import com.example.foodplanner.Login.presenter.LoginPresenter;
 import com.example.foodplanner.WeekPlan.model.UserPlan;
-import com.example.foodplanner.view.HomeActivity;
 
 
-public class LoginFragment extends Fragment implements ILogin {
+public class LoginFragment extends Fragment  {
 //    LoginPresenter presenter;
 //    View view;
 //    @Override
@@ -63,10 +48,6 @@ public class LoginFragment extends Fragment implements ILogin {
 //        });
 //    }
 
-    @Override
-    public void setUserPlan(UserPlan userPlan) {
-
-    }
 
     /*@Override
     public void loginStatus(boolean isLogedin , Long id) {

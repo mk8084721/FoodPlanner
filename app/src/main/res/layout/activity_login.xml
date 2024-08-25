@@ -116,15 +116,16 @@
             android:text="@string/google"
             android:textColor="@color/mainOrange"
             app:layout_constraintStart_toStartOf="@+id/emailTxt"
-            app:layout_constraintTop_toTopOf="@+id/button3" />
+            app:layout_constraintTop_toTopOf="@+id/guestBtn" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/guestBtn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/white"
-            android:text="Button"
+            android:gravity="center"
+            android:text="@string/guest"
             android:textColor="@color/mainOrange"
             app:layout_constraintEnd_toEndOf="@+id/emailTxt"
             app:layout_constraintStart_toEndOf="@+id/googleLoginBtn"
