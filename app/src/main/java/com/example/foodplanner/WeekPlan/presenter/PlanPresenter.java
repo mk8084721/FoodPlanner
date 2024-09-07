@@ -2,12 +2,8 @@ package com.example.foodplanner.WeekPlan.presenter;
 
 import android.app.Activity;
 
-import androidx.fragment.app.FragmentActivity;
-
-import com.example.foodplanner.Home.Repo.HomeLocalRepo;
-import com.example.foodplanner.Home.view.IHome;
 import com.example.foodplanner.WeekPlan.Repo.LocalPlanRepo;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.model.PlanMeal;
 import com.example.foodplanner.WeekPlan.view.IPlan;
 
 import java.util.List;

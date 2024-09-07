@@ -1,7 +1,7 @@
 package com.example.foodplanner.Favorite.presenter;
 
 import com.example.foodplanner.Favorite.Repo.FavoriteRepo;
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.Favorite.view.IFavoriteFragment;
 
 import java.util.List;

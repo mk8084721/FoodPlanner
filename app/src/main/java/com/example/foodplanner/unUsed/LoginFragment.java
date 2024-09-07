@@ -2,8 +2,6 @@ package com.example.foodplanner.unUsed;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.foodplanner.WeekPlan.model.UserPlan;
-
 
 public class LoginFragment extends Fragment  {
 //    LoginPresenter presenter;

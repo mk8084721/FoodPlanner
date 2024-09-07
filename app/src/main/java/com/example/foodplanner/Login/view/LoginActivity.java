@@ -19,8 +19,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Register.view.RegisterActivity;
 import com.example.foodplanner.Login.presenter.LoginPresenter;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
-import com.example.foodplanner.database.AppDataBase;
 import com.example.foodplanner.database.LocalRepoImpl;
 import com.example.foodplanner.view.HomeActivity;
 import com.example.foodplanner.unUsed.ILogin;
@@ -59,13 +57,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
 
 
         String email = presenter.readSharedPreferance(this);
-        if(email!=null&&!email.equals("")&&!email.isEmpty()){
+        if(email!=null&&!email.isBlank()){
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("userEmail",email);
             startActivity(intent);
-        }else {
-            Log.i("JTAG", "onCreate: ");
-            presenter.insertEmptyPlanDays();
         }
 
         getSupportActionBar().hide();
@@ -118,16 +113,15 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        presenter.insertEmptyPlanDays(email);
+                        presenter.insertEmptyUserPlan(email);
                         presenter.writeInSharedPreferance(LoginActivity.this,1,email);
-                        presenter.insertEmptyPlanDays();
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.putExtra("userEmail",email);
-                        startActivity(intent);
                         Toast.makeText(LoginActivity.this,"User Login Successfully",Toast.LENGTH_SHORT).show();
                         Log.i("TAG", "onComplete: "+task.getResult().getUser().getUid());
                         Log.i("TAG", "onComplete: "+task.getResult().getUser().getEmail());
-
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        startActivity(intent);
                     }else {
                         Toast.makeText(LoginActivity.this,"Login Error : "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                     }
@@ -166,6 +160,8 @@ public class LoginActivity extends AppCompatActivity implements ILogin {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String email = user.getEmail();
+                            presenter.insertEmptyPlanDays(email);
+                            presenter.insertEmptyUserPlan(email);
                             presenter.writeInSharedPreferance(LoginActivity.this, 1, email);
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.putExtra("userEmail", email);

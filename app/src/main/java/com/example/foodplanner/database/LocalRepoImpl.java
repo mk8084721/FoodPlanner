@@ -3,12 +3,11 @@ package com.example.foodplanner.database;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
-import androidx.lifecycle.LiveData;
-
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
-import com.example.foodplanner.model.User;
+import com.example.foodplanner.model.FavoriteMeal;
+import com.example.foodplanner.model.MyUser;
+import com.example.foodplanner.model.PlanMeal;
 
 import java.util.List;
 
@@ -19,14 +18,16 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class LocalRepoImpl implements LocalRepo{
     private FoodPlannerDao dao;
     private static LocalRepoImpl localSource;
-
+    private static String EMAIL;
     private LocalRepoImpl(Context context) {
         AppDataBase dataBase = AppDataBase.getInstance(context);
         dao = dataBase.getFoodPlannerDao();
+
     }
     public static LocalRepoImpl getInstance(Context context){
         if(localSource==null){
             localSource = new LocalRepoImpl(context);
+            EMAIL = context.getSharedPreferences("STORAGE", Context.MODE_PRIVATE).getString("userEmail","");
         }
         return localSource;
     }
@@ -96,32 +97,23 @@ public class LocalRepoImpl implements LocalRepo{
     }
 
     @Override
-    public Flowable<List<PlanMeal>> getPlanMeals() {
-        return dao.getPlanMeals();
+    public Flowable<List<PlanMeal>> getPlanMeals(String email) {
+        return dao.getPlanMeals(email);
     }
 
     @Override
     public Flowable<PlanMeal> getPlanMealByDayId(String dayId) {
-        return dao.getPlanMealByDayId(dayId);
+        return dao.getPlanMealByDayId(EMAIL , dayId);
     }
 
     @Override
-    public void insertPlanMeal(PlanMeal... planMeals) {
-        Flowable<List<PlanMeal>> flowable = getPlanMeals();
-        flowable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        planMeals1 -> {
-                            if(planMeals1.size()<2){
-                                new Thread(){
-                                    @Override
-                                    public void run() {
-                                        dao.insertPlanMeal(planMeals);
-                                    }
-                                }.start();
-                            }
-                        }
-                );
+    public void insertPlanMeal(String email , PlanMeal... planMeals) {
+        new Thread(){
+            @Override
+            public void run() {
+                dao.insertPlanMeal(planMeals);
+            }
+        }.start();
     }
 
     @Override
@@ -153,6 +145,11 @@ public class LocalRepoImpl implements LocalRepo{
         SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         return storage.getString("plan","0000000");
     }
+    @Override
+    public String readEmailShP(Context context){
+        SharedPreferences storage = context.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        return storage.getString("userEmail","");
+    }
 
     @Override
     public Flowable<List<PlanMeal>> getMealsInPlan(String emptyString) {
@@ -161,17 +158,37 @@ public class LocalRepoImpl implements LocalRepo{
 
     @Override
     public void rmvLocalData(Activity activity ,Context context) {
-        AppDataBase.getInstance(context).clearAllTables();
+        String plan = readPlanShP(activity);
+        String email = readEmailShP(activity);
+        Log.i("Profile", "rmvLocalData: email : "+email + "\nplan : "+plan);
+        new Thread(){
+            @Override
+            public void run() {
+                dao.updateUserPlan(new MyUser(email,plan));
+            }
+        }.start();
         clearShP(activity,context);
+    }
+
+    @Override
+    public void insertUserPlan(MyUser userPlan) {
+        new Thread(){
+            @Override
+            public void run() {
+                dao.insertUserPlan(userPlan);
+            }
+        }.start();
+    }
+
+    @Override
+    public Flowable<List<MyUser>> getUserPlan(String email) {
+        return dao.getUserPlanByEmail(email);
     }
 
     private void clearShP(Activity activity ,Context context) {
         SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = storage.edit();
-        editor.putInt("isLogedin",0);
-        editor.putString("userEmail","");
-        editor.putString("plan","0000000");
-        editor.putInt("isGuest",0);
+        editor.clear();
         editor.commit();
     }
 

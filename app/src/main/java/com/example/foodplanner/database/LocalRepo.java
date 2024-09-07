@@ -3,15 +3,9 @@ package com.example.foodplanner.database;
 import android.app.Activity;
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
-import com.example.foodplanner.model.User;
+import com.example.foodplanner.model.FavoriteMeal;
+import com.example.foodplanner.model.MyUser;
+import com.example.foodplanner.model.PlanMeal;
 
 import java.util.List;
 
@@ -25,14 +19,18 @@ public interface LocalRepo {
 
     //plan
 
-    public Flowable<List<PlanMeal>> getPlanMeals();
+    public Flowable<List<PlanMeal>> getPlanMeals(String email);
     public Flowable<PlanMeal> getPlanMealByDayId(String dayId);
-    public void insertPlanMeal(PlanMeal... planMeals);
+    public void insertPlanMeal(String email, PlanMeal... planMeals);
     public void updatePlanMeal(PlanMeal... planMeals);
     public void deletePlanMeal(PlanMeal... planMeals);
     public void writePlanShP(Activity activity , String plan);
     public String readPlanShP(Activity activity);
     public Flowable<List<PlanMeal>> getMealsInPlan(String emptyString);
 
+    public String readEmailShP(Context context);
     void rmvLocalData(Activity activity ,Context context);
+    void insertUserPlan(MyUser userPlan);
+
+    Flowable<List<MyUser>> getUserPlan(String email);
 }

@@ -1,6 +1,8 @@
 package com.example.foodplanner.Home.Repo;
 
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import android.content.Context;
+
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.network.model.Meal;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface HomeLocalRepo {
     Flowable<List<FavoriteMeal>> getFavoriteMeals();
 
     void updatePlanMeal(Meal meal, int selectedDay);
+
+    String readEmailShP(Context context);
 }

@@ -11,15 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.foodplanner.Home.view.HomeFragmentDirections;
 import com.example.foodplanner.R;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
-import com.example.foodplanner.network.model.Meal;
+import com.example.foodplanner.model.PlanMeal;
 
 import java.net.MalformedURLException;
 import java.net.URL;

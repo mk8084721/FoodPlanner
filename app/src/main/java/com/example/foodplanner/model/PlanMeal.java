@@ -1,21 +1,21 @@
-package com.example.foodplanner.WeekPlan.model;
+package com.example.foodplanner.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(primaryKeys = {"userEmail", "dayId"})
 public class PlanMeal {
-    @PrimaryKey(autoGenerate = true)
     @NonNull
-    private int id;
-    private static String userEmail;
+    private String userEmail;
+    @NonNull
     private String dayId;
     private String mealId;
     private String mealName;
     private String mealImg;
 
-    public PlanMeal(String dayId, String mealId, String mealName, String mealImg) {
+    public PlanMeal(@NonNull String userEmail, @NonNull String dayId, String mealId, String mealName, String mealImg) {
+        this.userEmail = userEmail;
         this.dayId = dayId;
         this.mealId = mealId;
         this.mealName = mealName;
@@ -25,7 +25,7 @@ public class PlanMeal {
     @Override
     public String toString() {
         return "PlanMeal{" +
-                "id=" + id +
+                "userEmail=" + userEmail +
                 ", dayId='" + dayId + '\'' +
                 ", mealId='" + mealId + '\'' +
                 ", mealName='" + mealName + '\'' +
@@ -33,20 +33,13 @@ public class PlanMeal {
                 '}';
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public static String getUserEmail() {
+    @NonNull
+    public String getUserEmail() {
         return userEmail;
     }
 
-    public static void setUserEmail(String userEmail) {
-        PlanMeal.userEmail = userEmail;
+    public void setUserEmail(@NonNull String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getDayId() {

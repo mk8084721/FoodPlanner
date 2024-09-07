@@ -1,13 +1,12 @@
 package com.example.foodplanner.Home.Repo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.model.FavoriteMeal;
+import com.example.foodplanner.model.PlanMeal;
 import com.example.foodplanner.database.LocalRepo;
 import com.example.foodplanner.database.LocalRepoImpl;
-import com.example.foodplanner.network.RemoteRebo;
-import com.example.foodplanner.network.RemoteRepoImpl;
 import com.example.foodplanner.network.model.Meal;
 
 import java.util.List;
@@ -59,6 +58,13 @@ public class HomeLocalRepoImpl implements HomeLocalRepo{
                             localRepo.updatePlanMeal(planMeal);
                         }
                 );
+    }
+
+    @Override
+    public String readEmailShP(Context context) {
+        SharedPreferences storage = context.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+        String email = storage.getString("userEmail", null);
+        return email;
     }
 
 

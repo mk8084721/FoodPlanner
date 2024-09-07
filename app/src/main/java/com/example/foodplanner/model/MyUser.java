@@ -1,19 +1,19 @@
-package com.example.foodplanner.WeekPlan.model;
+package com.example.foodplanner.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class UserPlan {
+public class MyUser {
     @PrimaryKey
     @NonNull
     private String userEmail;
-    private String plan;
+    private String userPlan;
 
-    public UserPlan(@NonNull String userEmail, String plan) {
+    public MyUser(@NonNull String userEmail, String userPlan) {
         this.userEmail = userEmail;
-        this.plan = plan;
+        this.userPlan = userPlan;
     }
 
     @NonNull
@@ -25,11 +25,11 @@ public class UserPlan {
         this.userEmail = userEmail;
     }
 
-    public String getPlan() {
-        return plan;
+    public String getUserPlan() {
+        return userPlan;
     }
 
-    public void setPlan(String plan) {
-        this.plan = plan;
+    public void setUserPlan(String userPlan) {
+        this.userPlan = userPlan;
     }
 }

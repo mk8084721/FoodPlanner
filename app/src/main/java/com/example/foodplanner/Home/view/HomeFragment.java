@@ -42,11 +42,11 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new HomePresenter(this, HomeRepoImpl.getInstance() , HomeLocalRepoImpl.getInstance(getContext()));
+        presenter = new HomePresenter(this, HomeRepoImpl.getInstance() , HomeLocalRepoImpl.getInstance(getContext()),getContext());
         mealsList = new ArrayList<>();
         selectedDayIndex = new AtomicInteger(-1);
-        Log.i("KTAG", "onCreate: "+presenter.readPlanShP(getActivity()));
-        Meal.setWeekPlan(presenter.readPlanShP(getActivity()));
+        Log.i("KTAG", "onCreate: "+presenter.readPlanShP());
+        Meal.setWeekPlan(presenter.readPlanShP());
     }
 
     @Override
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
 
 
     public void addToPlanClicked(Meal meal, int selectedDay) {
-        presenter.writePlanShP(getActivity(),Meal.getWeekPlan());
+        presenter.writePlanShP(Meal.getWeekPlan());
         presenter.updatePlanMeal(meal,selectedDay);
         Log.i("TAG", "addToPlanClicked: \nPlan : "+Meal.getWeekPlan()+"\n selectedDay :"+selectedDay);
     }
@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment implements IHome,HomeOnClickListener 
     public void showDaySelectionDialog(Meal meal) {
         // Generate the list of days for the current week
         ArrayList<String> daysOfWeek = getDaysOfWeek();
-        StringBuffer weekPlan =new StringBuffer(presenter.readPlanShP(getActivity()));
+        StringBuffer weekPlan =new StringBuffer(presenter.readPlanShP());
         Log.i("KTAG", "showDaySelectionDialog: \n"+ weekPlan);
         StringBuffer emptyDays = new StringBuffer();
 

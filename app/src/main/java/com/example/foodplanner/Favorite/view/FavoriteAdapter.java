@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.R;
 
 import java.net.MalformedURLException;

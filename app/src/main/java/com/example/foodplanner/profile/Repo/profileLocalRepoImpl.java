@@ -26,4 +26,5 @@ public class profileLocalRepoImpl implements profileLocalRepo{
     public void rmvLocalData(Activity activity , Context context) {
         localRepo.rmvLocalData(activity,context);
     }
+
 }

@@ -1,10 +1,9 @@
-package com.example.foodplanner.model;
+package com.example.foodplanner.unUsed;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-import androidx.room.Relation;
+
 @Entity(primaryKeys = {"id", "user_id"})
 public class FavoriteMeals {
     @NonNull

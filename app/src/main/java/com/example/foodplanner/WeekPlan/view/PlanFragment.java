@@ -1,6 +1,5 @@
 package com.example.foodplanner.WeekPlan.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,14 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.WeekPlan.Repo.LocalPlanRepoImpl;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.model.PlanMeal;
 import com.example.foodplanner.WeekPlan.presenter.PlanPresenter;
 import com.example.foodplanner.network.model.Meal;
 

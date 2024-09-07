@@ -16,8 +16,8 @@ public class profilePresenter {
         this.localRepo = localRepo;
     }
 
-    public void rmvLocalData(Activity activity , Context context) {
-        localRepo.rmvLocalData(activity, context);
+    public void rmvLocalData(Activity activity , Context context ) {
+        localRepo.rmvLocalData(activity, context );
     }
 
     public void signoutfromGoogle() {

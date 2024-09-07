@@ -2,7 +2,6 @@ package com.example.foodplanner.view;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -12,8 +11,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
-import com.example.foodplanner.database.LocalRepoImpl;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {

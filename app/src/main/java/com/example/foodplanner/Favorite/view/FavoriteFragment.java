@@ -13,17 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodplanner.Favorite.Repo.FavoriteRepoImpl;
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.Favorite.presenter.FavoritePresenter;
-import com.example.foodplanner.Home.view.RecyclerAdapter;
 import com.example.foodplanner.R;
-import com.example.foodplanner.network.model.Meal;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import io.reactivex.rxjava3.core.Flowable;
 
 
 public class FavoriteFragment extends Fragment implements FavoriteOnClickListener,IFavoriteFragment {

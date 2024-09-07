@@ -2,8 +2,7 @@ package com.example.foodplanner.Favorite.Repo;
 
 import android.content.Context;
 
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
-import com.example.foodplanner.Home.Repo.HomeLocalRepoImpl;
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.database.LocalRepo;
 import com.example.foodplanner.database.LocalRepoImpl;
 

@@ -1,7 +1,7 @@
 package com.example.foodplanner.MealDetails.presenter;
 
 import com.example.foodplanner.Favorite.Repo.FavoriteRepo;
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.MealDetails.Repo.MealRepo;
 import com.example.foodplanner.MealDetails.view.IMealDetails;
 import com.example.foodplanner.network.model.Meal;

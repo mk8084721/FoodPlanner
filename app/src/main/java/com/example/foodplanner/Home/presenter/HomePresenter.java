@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.foodplanner.Favorite.model.FavoriteMeal;
+import com.example.foodplanner.model.FavoriteMeal;
 import com.example.foodplanner.Home.Repo.HomeLocalRepo;
 import com.example.foodplanner.Home.Repo.HomeRepo;
 import com.example.foodplanner.network.model.Category;
@@ -25,11 +25,15 @@ public class HomePresenter {
     private HomeRepo remoteRepo;
     private HomeLocalRepo localRepo;
     private IHome view;
+    Context context;
     private Map<String,Meal[]> mealMap;
-    public HomePresenter(IHome view , HomeRepo homeRepo , HomeLocalRepo localRepo) {
+    String email ;
+    public HomePresenter(IHome view , HomeRepo homeRepo , HomeLocalRepo localRepo , Context context) {
         this.remoteRepo = homeRepo;
         this.localRepo = localRepo;
         this.view = view;
+        this.context=context;
+        email = localRepo.readEmailShP(context);
         mealMap = new HashMap<>();
     }
     public void getAllCategories(){
@@ -80,19 +84,19 @@ public class HomePresenter {
                 );
     }
     public void insertFavorite(Meal meal) {
-        localRepo.insertFavorite(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
+        localRepo.insertFavorite(new FavoriteMeal(email , meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
     }
 
     public void deleteFavorite(Meal meal) {
-        localRepo.deleteFavorite(new FavoriteMeal(meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
+        localRepo.deleteFavorite(new FavoriteMeal(email,meal.getIdMeal(), meal.getStrMealThumb(), meal.getStrMeal()));
     }
 
-    public String readPlanShP(Activity activity){
-        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+    public String readPlanShP(){
+        SharedPreferences storage = context.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         return storage.getString("plan","0000000");
     }
-    public void writePlanShP(Activity activity , String plan){
-        SharedPreferences storage = activity.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
+    public void writePlanShP(String plan){
+        SharedPreferences storage = context.getSharedPreferences("STORAGE", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = storage.edit();
         editor.putString("plan",plan);
         editor.commit();

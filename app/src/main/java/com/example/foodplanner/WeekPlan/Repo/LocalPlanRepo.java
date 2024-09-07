@@ -2,7 +2,7 @@ package com.example.foodplanner.WeekPlan.Repo;
 
 import android.app.Activity;
 
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.model.PlanMeal;
 
 import java.util.List;
 

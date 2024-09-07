@@ -3,8 +3,7 @@ package com.example.foodplanner.WeekPlan.Repo;
 import android.app.Activity;
 import android.content.Context;
 
-import com.example.foodplanner.Home.Repo.HomeLocalRepoImpl;
-import com.example.foodplanner.WeekPlan.model.PlanMeal;
+import com.example.foodplanner.model.PlanMeal;
 import com.example.foodplanner.database.LocalRepo;
 import com.example.foodplanner.database.LocalRepoImpl;
 
